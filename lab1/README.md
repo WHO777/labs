@@ -24,7 +24,7 @@ inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
 Blue - данные для валидации(проверки качества) <br/>
 Orange  - тренировочные данные
 ### epoch categorical accuracy
-![](./epoch_categorical_accuracy(2).svg))
+![](./epoch_categorical_accuracy(2).svg)
 kek
 ![epoch_categorical_accuracy_1_](https://user-images.githubusercontent.com/61012068/110214611-719a0900-7eb6-11eb-94e9-92f996a417a2.jpg)
 ### epoch loss
