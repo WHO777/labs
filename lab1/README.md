@@ -13,7 +13,7 @@ inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
 ## Flatten
 ```Flatten``` делает reshape из размерности ```(8, 111, 111)``` в ```(None, 98568)```
 # Графика
-Синяя - validation
+Синяя - validation <br/>
 Оранжевая - train
 ## epoch categorical accuracy
 ![epoch_categorical_accuracy_1_](https://user-images.githubusercontent.com/61012068/110214611-719a0900-7eb6-11eb-94e9-92f996a417a2.jpg)
