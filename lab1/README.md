@@ -26,7 +26,7 @@ Orange  - тренировочные данные
 ### epoch categorical accuracy
 ![](./graphic/epoch_categorical_accuracy(1).svg)
 ### epoch loss
-![](./graphic/epoch_categorical_accuracy(1).svg)
+![](./graphic/epoch_loss(1).svg)
 ***
 ## 2. Модифицированная сеть
 ## Архитектура 
@@ -55,7 +55,7 @@ Grey  - тренировочные данные
 ### epoch categorical accuracy
 ![](./graphic/epoch_categorical_accuracy(2).svg)
 ### epoch loss
-![](./graphic/epoch_categorical_accuracy(2).svg)
+![](./graphic/epoch_loss(2).svg)
 ***
 # 3. Анализ 
 Из графиков видно, что первая модель быстрее обучается, что можно объяснить ее простотой. Для второй же модели, возможно, понадобится больше эпох.Возможно так же что второй модели сложно обучится потому что не хватает данных. Так же на обе модели сказывается случаная инициализация весов, из за чего можно очень долго искать минимум функции ошибки.
