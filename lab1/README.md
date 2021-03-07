@@ -24,11 +24,9 @@ inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
 Blue - данные для валидации(проверки качества) <br/>
 Orange  - тренировочные данные
 ### epoch categorical accuracy
-![](../epoch_categorical_accuracy(2).svg)
-kek
-![epoch_categorical_accuracy_1_](https://user-images.githubusercontent.com/61012068/110214611-719a0900-7eb6-11eb-94e9-92f996a417a2.jpg)
+![](./graphic/epoch_categorical_accuracy(1).svg)
 ### epoch loss
-![epoch_loss_1_](https://user-images.githubusercontent.com/61012068/110214616-78c11700-7eb6-11eb-81d0-7595447c5c91.jpg)
+![](./graphic/epoch_categorical_accuracy(1).svg)
 ***
 ## 2. Модифицированная сеть
 ## Архитектура 
@@ -55,9 +53,9 @@ kek
 Orange - данные для валидации(проверки качества) <br/>
 Grey  - тренировочные данные
 ### epoch categorical accuracy
-![epoch_categorical_accuracy_2_](https://user-images.githubusercontent.com/61012068/110242214-16275400-7f66-11eb-8eba-32929462317c.jpg)
+![](./graphic/epoch_categorical_accuracy(2).svg)
 ### epoch loss
-![epoch_loss_2_](https://user-images.githubusercontent.com/61012068/110242215-16bfea80-7f66-11eb-80d2-d04df1d119a5.jpg)
+![](./graphic/epoch_categorical_accuracy(2).svg)
 ***
 # 3. Анализ 
 Из графиков видно, что первая модель быстрее обучается, что можно объяснить ее простотой. Для второй же модели, возможно, понадобится больше эпох.Возможно так же что второй модели сложно обучится потому что не хватает данных. Так же на обе модели сказывается случаная инициализация весов, из за чего можно очень долго искать минимум функции ошибки.
