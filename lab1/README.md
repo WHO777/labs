@@ -1,5 +1,5 @@
-
-# 1.Начальной сеть
+ 
+# 1. Начальная сеть
 ## Архитектура 
 ```python 
 inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
