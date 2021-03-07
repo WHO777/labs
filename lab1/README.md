@@ -53,6 +53,7 @@ Orange  - тренировочные данные
 Orange - данные для валидации(проверки качества) <br/>
 Grey  - тренировочные данные
 ### epoch categorical accuracy
+<b:svg use="/labs/lab1//epoch_loss(2).svg#iconSvg-desktop"></b:svg>
 ![epoch_categorical_accuracy_2_](https://user-images.githubusercontent.com/61012068/110242214-16275400-7f66-11eb-8eba-32929462317c.jpg)
 ### epoch loss
 ![epoch_loss_2_](https://user-images.githubusercontent.com/61012068/110242215-16bfea80-7f66-11eb-80d2-d04df1d119a5.jpg)
