@@ -8,6 +8,7 @@ inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   x = tf.keras.layers.Flatten()(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
 ```
+## Описание
 ### Conv2D
 ```Conv2D``` представляет собой свертку 3х3 с ```padding = 0``` и ```strides = (1,1)```
 ### MaxPool2D
@@ -41,6 +42,7 @@ Orange  - train
   x = tf.keras.layers.Dense(94, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
 ```
+## Описание
 ### ReLU
 ```ReLU``` представляет собой функцию активации которая нужна для придания нелинейности нейронной сети <br/>
 ### 
