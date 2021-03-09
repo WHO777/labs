@@ -75,6 +75,7 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
+  print(model.summary())
 
   model.compile(
     optimizer=tf.optimizers.Adam(lr=0.001),
