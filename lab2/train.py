@@ -69,7 +69,6 @@ def build_model():
   x = model(inputs, training=False)
   x = tf.keras.layers.GlobalAveragePooling2D()(x)
   x = tf.keras.layers.Dropout(.2)(x)
-  x = tf. keras.layers.Dense(10000)(x)
   x = tf. keras.layers.Dense(100)(x)
   outputs = tf. keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
