@@ -64,6 +64,7 @@ def build_model():
   for layer in model.layers:
       layer.trainable = False
   x = model(inputs)
+  print(EfficientNetB0(include_top=True, weights='imagenet').layers[235:240])
   outputs = tf.keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
@@ -88,14 +89,14 @@ def main():
   )
 
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
-  model.fit(
+  '''model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )
+  )'''
 
 
 if __name__ == '__main__':
