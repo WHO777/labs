@@ -67,7 +67,7 @@ def build_model():
   model.trainable = False
   x = model(inputs, training=False)
   x = tf.keras.layers.GlobalAveragePooling2D()(x)
-  x = layers.BatchNormalization()(x)
+  x = tf.keras.layers.BatchNormalization()(x)
   x = tf.keras.layers.Dropout(.2)(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
