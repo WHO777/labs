@@ -61,10 +61,9 @@ def create_dataset(filenames, batch_size):
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet')
-  for layer in model.layers:
-      layer.trainable = False
+  model.trainable = False
   x = model(inputs)
-  print(model.layers)
+  x = tf.keras.layers.Flatten()(x)
   outputs = tf.keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
@@ -89,14 +88,14 @@ def main():
   )
 
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
-  '''model.fit(
+  model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )'''
+  )
 
 
 if __name__ == '__main__':
