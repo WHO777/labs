@@ -63,7 +63,7 @@ def build_model():
   model = EfficientNetB0(include_top=True, weights='imagenet')
   model.trainable = False
   #model.layers[-1].trainable = True
-  x = model(inputs)
+  x = model(inputs, training=True)
   outputs = tf.keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
