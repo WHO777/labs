@@ -61,9 +61,9 @@ def create_dataset(filenames, batch_size):
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=True, weights='imagenet')
-  ptint(model.layers[230:])
+  print(model.layers[230:])
   model = EfficientNetB0(include_top=False, weights='imagenet')
-  ptint(model.layers[230:])  
+  print(model.layers[230:])  
     
   '''for layer in model.layers[:len(model.layers)-1]:
       layer.trainable = False
