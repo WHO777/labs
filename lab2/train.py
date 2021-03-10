@@ -60,11 +60,11 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  model = EfficientNetB0(include_top=False, weights='imagenet')()
+  model = EfficientNetB0(include_top=False, weights='imagenet')
   for layer in model.layers:
       layer.trainable = False
   x = model(inputs)
-  print(model.summary)
+  print(model.layers)
   outputs = tf.keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
