@@ -64,7 +64,7 @@ def build_model():
   #model.trainable = True
   for layer in model.layers[:238]:
       layer.trainable = False
-  #model.layers[-1].trainable = True
+  model.layers[-1].trainable = False
   x = model(inputs, training=True)
   outputs = tf.keras.layers.Dense(20)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
