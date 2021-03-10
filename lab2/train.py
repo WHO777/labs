@@ -70,6 +70,7 @@ def build_model():
   print(model.summary())
   x = model(inputs)
   outputs = tf.keras.layers.Dense(20)(x)'''
+  outputs = model(inputs)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
