@@ -68,7 +68,7 @@ def build_model():
   x = model(inputs, training=False)
   x = tf.keras.layers.GlobalAveragePooling2D()(x)
   x = tf.keras.layers.Dropout(.2)(x)
-  outputs = tf. keras.layers.core.Dense(20)(x)
+  outputs = tf. keras.layers.Dense(20)(x)
   '''for layer in model.layers[:len(model.layers)-1]:
       layer.trainable = False
   print(model.summary())
