@@ -57,14 +57,15 @@ def create_dataset(filenames, batch_size):
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
+'''<tensorflow.python.keras.layers.pooling.GlobalAveragePooling2D object at 0x7f8188921f70>,
+   <tensorflow.python.keras.layers.core.Dropout object at 0x7f818892b9a0>, 
+   <tensorflow.python.keras.layers.core.Dense object at 0x7f818892bd60>'''
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=True, weights='imagenet')
-  print(model.layers[230:])
-  model = EfficientNetB0(include_top=False, weights='imagenet')
-  print(model.layers[230:])  
-    
+  tf.keras.layers.GlobalAveragePooling2D()(x)  
+  print(model.layers[239].rate)
   '''for layer in model.layers[:len(model.layers)-1]:
       layer.trainable = False
   print(model.summary())
