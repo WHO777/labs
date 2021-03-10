@@ -65,7 +65,7 @@ def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=True, weights='imagenet')
   tf.keras.layers.GlobalAveragePooling2D()
-  print(model.layers[239].rate)
+  print(model.layers[238].rate)
   '''for layer in model.layers[:len(model.layers)-1]:
       layer.trainable = False
   print(model.summary())
