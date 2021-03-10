@@ -60,11 +60,10 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  outputs = EfficientNetB0(include_top=True, weights='imagenet', classes=1000)#(inputs)
-  #print('\n\n\n\n', len(outputs.layers), '\n\n\n\n')
-  print('\n\n\n\n', outputs.layers[239:240], '\n\n\n\n')
-  
-  #print(outputs.summary())
+  x = EfficientNetB0(include_top=True, weights='imagenet', classes=20)(inputs)
+  for layer x.layers[:len(outputs.layers)-1]:
+      layers.trainable = False
+  outputs = x(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
