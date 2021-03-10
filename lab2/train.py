@@ -23,7 +23,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 128
+BATCH_SIZE = 256
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -60,7 +60,7 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  model = EfficientNetB0(include_top=False, weights='imagenet')
+  model = EfficientNetB0(include_top=False, weights='imagenet', classes=20)
   model.trainable = False
   x = model(inputs)
   x = tf.keras.layers.Flatten()(x)
