@@ -78,7 +78,7 @@ def create_dataset(filenames, batch_size):
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)'''
 
-def build_model(num_classes):
+def build_model():
     inputs = layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
     #x = img_augmentation(inputs)
     model = EfficientNetB0(include_top=False, input_tensor=x, weights="imagenet")
