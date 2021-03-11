@@ -23,7 +23,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 64
+BATCH_SIZE = 512
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -61,23 +61,24 @@ def create_dataset(filenames, batch_size):
    <tensorflow.python.keras.layers.core.Dropout object at 0x7f818892b9a0>, 
    <tensorflow.python.keras.layers.core.Dense object at 0x7f818892bd60>'''
 
-def build_model():
+'''def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   x = img_augmentation(inputs)
   outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
+'''
 
-'''def build_model():
+def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
   model.trainable = False
   x = tf.keras.layers.GlobalAveragePooling2D()(model.output)
   x = tf.keras.layers.BatchNormalization()(x)
-  x = tf.keras.layers.Dropout(.2)(x)
+  x = tf.keras.layers.Dropout(0.2)(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
-  '''
 
+'''
 img_augmentation = tf.keras.Sequential(
     [
         preprocessing.RandomRotation(factor=0.15),
@@ -87,6 +88,7 @@ img_augmentation = tf.keras.Sequential(
     ],
     name="img_augmentation",
 )
+'''
 
 def main():
   args = argparse.ArgumentParser()
@@ -102,7 +104,7 @@ def main():
   print(model.summary())
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.01),
+    optimizer=tf.optimizers.Adam(lr=1e-2),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
