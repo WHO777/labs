@@ -81,7 +81,7 @@ def create_dataset(filenames, batch_size):
 def build_model():
     inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
     #x = img_augmentation(inputs)
-    model = EfficientNetB0(include_top=False, input_tensor=x, weights="imagenet")
+    model = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
 
     # Freeze the pretrained weights
     model.trainable = False
