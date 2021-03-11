@@ -78,7 +78,7 @@ def build_model():
   return tf.keras.Model(inputs=inputs, outputs=outputs)
   '''
 
-img_augmentation = Sequential(
+img_augmentation = tf.keras.Sequential(
     [
         preprocessing.RandomRotation(factor=0.15),
         preprocessing.RandomTranslation(height_factor=0.1, width_factor=0.1),
