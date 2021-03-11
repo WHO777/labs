@@ -23,7 +23,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -68,17 +68,18 @@ def create_dataset(filenames, batch_size):
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 '''
 
-'''def build_model():
+def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
   model.trainable = False
   x = tf.keras.layers.GlobalAveragePooling2D()(model.output)
   x = tf.keras.layers.BatchNormalization()(x)
   x = tf.keras.layers.Dropout(0.2)(x)
+  outputs = tf.keras.layers.Dense(1000, activation=tf.keras.layers.ReLU)(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
+  return tf.keras.Model(inputs=inputs, outputs=outputs)
 
-def build_model():
+'''def build_model():
     inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
     #x = img_augmentation(inputs)
     model = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
@@ -94,7 +95,7 @@ def build_model():
     x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
     outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax", name="pred")(x)
 
-    return tf.keras.Model(inputs, outputs, name="EfficientNet")
+    return tf.keras.Model(inputs, outputs, name="EfficientNet")'''
 
 
 img_augmentation = tf.keras.Sequential(
