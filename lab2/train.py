@@ -79,7 +79,7 @@ def create_dataset(filenames, batch_size):
   return tf.keras.Model(inputs=inputs, outputs=outputs)'''
 
 def build_model():
-    inputs = layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
+    inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
     #x = img_augmentation(inputs)
     model = EfficientNetB0(include_top=False, input_tensor=x, weights="imagenet")
 
@@ -87,12 +87,12 @@ def build_model():
     model.trainable = False
 
     # Rebuild top
-    x = layers.GlobalAveragePooling2D(name="avg_pool")(model.output)
-    x = layers.BatchNormalization()(x)
+    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(model.output)
+    x = tf.keras.layers.BatchNormalization()(x)
 
     top_dropout_rate = 0.2
-    x = layers.Dropout(top_dropout_rate, name="top_dropout")(x)
-    outputs = layers.Dense(NUM_CLASSES, activation="softmax", name="pred")(x)
+    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
+    outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax", name="pred")(x)
 
     return tf.keras.Model(inputs, outputs, name="EfficientNet")
 
