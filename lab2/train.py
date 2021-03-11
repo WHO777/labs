@@ -14,7 +14,7 @@ import time
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
-
+from tensorflow.keras.layers.experimental import preprocessing
 
 # Avoid greedy memory allocation to allow shared GPU usage
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -63,7 +63,8 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
+  x = img_augmentation(inputs)
+  outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 '''def build_model():
@@ -76,6 +77,16 @@ def build_model():
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
   '''
+
+img_augmentation = Sequential(
+    [
+        preprocessing.RandomRotation(factor=0.15),
+        preprocessing.RandomTranslation(height_factor=0.1, width_factor=0.1),
+        preprocessing.RandomFlip(),
+        preprocessing.RandomContrast(factor=0.1),
+    ],
+    name="img_augmentation",
+)
 
 def main():
   args = argparse.ArgumentParser()
