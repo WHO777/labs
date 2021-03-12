@@ -72,43 +72,13 @@ def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
   model.trainable = False
-  x = tf.keras.layers.Flatten()(model.output)  
-  x = tf.keras.layers.GlobalAveragePooling2D()(x)                             
+  x = tf.keras.layers.GlobalAveragePooling2D()(model.outputs)     
+  x = tf.keras.layers.Flatten()(x)
   #x = tf.keras.layers.BatchNormalization()(x)
   #x = tf.keras.layers.Dropout(0.2)(x)
   #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
-
-'''def build_model():
-    inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-    #x = img_augmentation(inputs)
-    model = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
-
-    # Freeze the pretrained weights
-    model.trainable = False
-
-    # Rebuild top
-    x = tf.keras.layers.GlobalAveragePooling2D(name="avg_pool")(model.output)
-    x = tf.keras.layers.BatchNormalization()(x)
-
-    top_dropout_rate = 0.2
-    x = tf.keras.layers.Dropout(top_dropout_rate, name="top_dropout")(x)
-    outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax", name="pred")(x)
-
-    return tf.keras.Model(inputs, outputs, name="EfficientNet")'''
-
-
-img_augmentation = tf.keras.Sequential(
-    [
-        preprocessing.RandomRotation(factor=0.15),
-        preprocessing.RandomTranslation(height_factor=0.1, width_factor=0.1),
-        preprocessing.RandomFlip(),
-        preprocessing.RandomContrast(factor=0.1),
-    ],
-    name="img_augmentation",
-)
-
 
 def main():
   args = argparse.ArgumentParser()
@@ -124,7 +94,7 @@ def main():
   print(model.summary())
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=1e-3),
+    optimizer=tf.optimizers.Adam(lr=1e-2),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
