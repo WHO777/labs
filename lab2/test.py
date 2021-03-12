@@ -48,37 +48,40 @@ def input_preprocess(image, label):
 
 
 def main():
-  
-dataset_name = "imagewang"
-(ds_train, ds_validation), ds_info = tfds.load(dataset_name, split=["train", "validation"], with_info=True, as_supervised=True) 
-size = (RESIZE_TO, RESIZE_TO)
+  args = argparse.ArgumentParser()
+  args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
+  args = args.parse_args()
 
-ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), label))
-ds_validation = ds_validation.map(lambda image, label: (tf.image.resize(image, size), label))
+  dataset_name = "imagewang"
+  (ds_train, ds_validation), ds_info = tfds.load(dataset_name, split=["train", "validation"], with_info=True, as_supervised=True, data_dir=args.train) 
+  size = (RESIZE_TO, RESIZE_TO)
 
-ds_train = ds_train.map(input_preprocess, num_parallel_calls=tf.data.experimental.AUTOTUNE)
-ds_train = ds_train.batch(batch_size=BATCH_SIZE, drop_remainder=True)
-ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
+  ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), label))
+  ds_validation = ds_validation.map(lambda image, label: (tf.image.resize(image, size), label))
 
-ds_validation = ds_validation.map(input_preprocess)
-ds_validation = ds_validation.batch(batch_size=BATCH_SIZE, drop_remainder=True)
+  ds_train = ds_train.map(input_preprocess, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+  ds_train = ds_train.batch(batch_size=BATCH_SIZE, drop_remainder=True)
+  ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
 
-model = build_model()
-print(model.summary())
-  
-model.compile(
-  optimizer=tf.optimizers.Adam(lr=1e-3),
-  loss=tf.keras.losses.categorical_crossentropy,
-  metrics=[tf.keras.metrics.categorical_accuracy],
-)
+  ds_validation = ds_validation.map(input_preprocess)
+  ds_validation = ds_validation.batch(batch_size=BATCH_SIZE, drop_remainder=True)
+
+  model = build_model()
+  print(model.summary())
+
+  model.compile(
+    optimizer=tf.optimizers.Adam(lr=1e-3),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+  )
   model.fit(
-      ds_train,
-      epochs=50,
-      validation_data=ds_validation,
-      callbacks=[
-        tf.keras.callbacks.TensorBoard(log_dir),
-      ], verbose=2
-    )
-  
+        ds_train,
+        epochs=50,
+        validation_data=ds_validation,
+        callbacks=[
+          tf.keras.callbacks.TensorBoard(log_dir),
+        ], verbose=2
+      )
+
 if __name__ == '__main__':
-    main()
+      main()
