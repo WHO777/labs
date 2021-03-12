@@ -1,21 +1,18 @@
 import numpy as np
+import argparse
 import tensorflow as tf
 import glob
+import time
 import tensorflow_datasets as tfds
 from tensorflow.python import keras as keras
-from tensorflow.python.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.layers.experimental import preprocessing
 
-LOG_DIR = 'logs'
+LOG_DIR = 'test_logs'
 BATCH_SIZE = 256
 NUM_CLASSES = 20
 RESIZE_TO = 224
 
-log_dir = '/content/logs'
-
-def normalize(image, label):
-  return tf.image.per_image_standardization(image), label
 
 def parse_proto_example(proto):
   keys_to_features = {
@@ -28,6 +25,10 @@ def parse_proto_example(proto):
   example['image'] = tf.image.resize(example['image'], tf.constant([RESIZE_TO, RESIZE_TO]))
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
+
+def normalize(image, label):
+  return tf.image.per_image_standardization(image), label
+
 def build_model():
   inputs = tf.keras.layers.Input(shape=(224, 224, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
@@ -39,3 +40,45 @@ def build_model():
   #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
+
+
+def input_preprocess(image, label):
+    label = tf.one_hot(label, NUM_CLASSES)
+    return image, label
+
+
+def main():
+  
+dataset_name = "imagewang"
+(ds_train, ds_validation), ds_info = tfds.load(dataset_name, split=["train", "validation"], with_info=True, as_supervised=True) 
+size = (RESIZE_TO, RESIZE_TO)
+
+ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), label))
+ds_validation = ds_validation.map(lambda image, label: (tf.image.resize(image, size), label))
+
+ds_train = ds_train.map(input_preprocess, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+ds_train = ds_train.batch(batch_size=BATCH_SIZE, drop_remainder=True)
+ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
+
+ds_validation = ds_validation.map(input_preprocess)
+ds_validation = ds_validation.batch(batch_size=BATCH_SIZE, drop_remainder=True)
+
+model = build_model()
+print(model.summary())
+  
+model.compile(
+  optimizer=tf.optimizers.Adam(lr=1e-3),
+  loss=tf.keras.losses.categorical_crossentropy,
+  metrics=[tf.keras.metrics.categorical_accuracy],
+)
+  model.fit(
+      ds_train,
+      epochs=50,
+      validation_data=ds_validation,
+      callbacks=[
+        tf.keras.callbacks.TensorBoard(log_dir),
+      ], verbose=2
+    )
+  
+if __name__ == '__main__':
+    main()
