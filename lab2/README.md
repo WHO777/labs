@@ -7,4 +7,4 @@ Learning
 ![](./graphic/epoch_categorical_accuracy(1).svg)
 ![](./graphic/epoch_loss(1).svg)
 ![](./graphic/epoch_categorical_accuracy(2).svg)
-![](./graphic/epoch_categorical_accuracy(2).svg)
+![](./graphic/epoch_loss(2).svg)
