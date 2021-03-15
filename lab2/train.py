@@ -84,7 +84,7 @@ def main():
   model = build_model()
   print(model.summary())
   for x in model.layers[:10]:
-    print x.dtype
+    print(x.dtype)
     
   model.compile(
     optimizer=tf.optimizers.Adam(lr=1e-2),
