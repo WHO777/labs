@@ -57,16 +57,6 @@ def create_dataset(filenames, batch_size):
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
-'''<tensorflow.python.keras.layers.pooling.GlobalAveragePooling2D object at 0x7f8188921f70>,
-   <tensorflow.python.keras.layers.core.Dropout object at 0x7f818892b9a0>, 
-   <tensorflow.python.keras.layers.core.Dense object at 0x7f818892bd60>'''
-
-'''def build_model():
-  inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  x = img_augmentation(inputs)
-  outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(x)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)
-'''
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
@@ -85,7 +75,7 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
-  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
+  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE).shuffle(8)
   print(dataset)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
