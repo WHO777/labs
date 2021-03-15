@@ -48,8 +48,8 @@ def main():
        color_mode='rgb', batch_size=BATCH_SIZE, image_size=(RESIZE_TO,
       RESIZE_TO), shuffle=True, seed=13, validation_split=0.3, subset="validation"
   )
-  ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), label))
-  ds_validation = ds_validation.map(lambda image, label: (tf.image.resize(image, size), label))
+  #ds_train = ds_train.map(lambda image, label: (tf.image.resize(image, size), label))
+  #ds_validation = ds_validation.map(lambda image, label: (tf.image.resize(image, size), label))
 
   ds_train = ds_train.map(input_preprocess, num_parallel_calls=tf.data.experimental.AUTOTUNE)
   ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
