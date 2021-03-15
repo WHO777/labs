@@ -9,7 +9,7 @@ from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.layers.experimental import preprocessing
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 256
+BATCH_SIZE = 64
 NUM_CLASSES = 20
 RESIZE_TO = 224
 
