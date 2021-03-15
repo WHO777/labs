@@ -83,7 +83,9 @@ def main():
 
   model = build_model()
   print(model.summary())
-
+  for x in model.layers[:10]:
+    print x.dtype
+    
   model.compile(
     optimizer=tf.optimizers.Adam(lr=1e-2),
     loss=tf.keras.losses.categorical_crossentropy,
@@ -91,14 +93,14 @@ def main():
   )
 
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
-  model.fit(
+  '''model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )
+  )'''
 
 
 if __name__ == '__main__':
