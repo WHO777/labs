@@ -70,7 +70,7 @@ def main():
         validation_data=ds_validation,
         callbacks=[
           tf.keras.callbacks.TensorBoard(LOG_DIR),
-        ], verbose=2
+        ]
       )
 
 if __name__ == '__main__':
