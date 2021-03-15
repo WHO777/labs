@@ -6,9 +6,9 @@ Learning
 ## Архитектура 
 
 ```python
-  inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)
+inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
+outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
+return tf.keras.Model(inputs=inputs, outputs=outputs)
 ```
 
 
