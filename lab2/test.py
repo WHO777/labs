@@ -35,7 +35,7 @@ def input_preprocess(image, label):
 def main():
   print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
   
-  args = argparse.ArgumentParser()
+  '''args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
@@ -65,7 +65,7 @@ def main():
     optimizer=tf.optimizers.Adam(lr=1e-3),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
-  )
+  )'''
   '''model.fit(
         ds_train,
         epochs=50,
