@@ -69,7 +69,7 @@ def main():
         epochs=50,
         validation_data=ds_validation,
         callbacks=[
-          tf.keras.callbacks.TensorBoard(log_dir),
+          tf.keras.callbacks.TensorBoard(LOG_DIR),
         ], verbose=2
       )
 
