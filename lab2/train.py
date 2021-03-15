@@ -58,13 +58,13 @@ def create_dataset(filenames, batch_size):
     .prefetch(tf.data.AUTOTUNE) 
 
 
-'''def build_model():
+def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
+  return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
-def build_model():
+'''def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
   model.trainable = False
@@ -74,7 +74,7 @@ def build_model():
   #x = tf.keras.layers.Dropout(0.2)(x)
   #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)
+  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
 
 def main():
   args = argparse.ArgumentParser()
