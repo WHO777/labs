@@ -10,9 +10,18 @@ inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
 outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
 return tf.keras.Model(inputs=inputs, outputs=outputs)
 ```
+## Графика 
+Blue - данные для валидации(проверки качества) <br/>
+Orange  - тренировочные данные
+### epoch categorical accuracy
+![](./graphic/epoch_categorical_accuracy(2).svg)
+### epoch loss
+![](./graphic/epoch_loss(2).svg)
+
+
+
+
 
 
 ![](./graphic/epoch_categorical_accuracy(1).svg)
 ![](./graphic/epoch_loss(1).svg)
-![](./graphic/epoch_categorical_accuracy(2).svg)
-![](./graphic/epoch_loss(2).svg)
