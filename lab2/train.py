@@ -44,6 +44,9 @@ def parse_proto_example(proto):
 def normalize(image, label):
   return tf.image.per_image_standardization(image), label
 
+def normalize2(image, label):
+  return image/255, label
+
 
 def create_dataset(filenames, batch_size):
   """Create dataset from tfrecords file
@@ -54,6 +57,7 @@ def create_dataset(filenames, batch_size):
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
     .map(normalize)\
+    .map(normalize2)\
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
