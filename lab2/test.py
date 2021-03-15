@@ -34,7 +34,8 @@ def input_preprocess(image, label):
 
 def main():
   print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-  
+  print(tf.test.is_gpu_available())
+
   '''args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
