@@ -35,9 +35,10 @@ return tf.keras.Model(inputs=inputs, outputs=outputs)
 ````
 ***
 ## Графика 
-Синяя - данные для валидации(проверки качества) <br/>
-Розовая  - тренировочные данные
+Серая - данные для валидации(проверки качества) <br/>
+Оранжевая  - тренировочные данные
 ### epoch categorical accuracy
 ![](./graphic/epoch_categorical_accuracy(1).svg)
 ### epoch loss
 ![](./graphic/epoch_loss(1).svg)
+# Анализ
