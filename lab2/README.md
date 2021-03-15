@@ -11,8 +11,8 @@ outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(in
 return tf.keras.Model(inputs=inputs, outputs=outputs)
 ```
 ## Графика 
-Blue - данные для валидации(проверки качества) <br/>
-Orange  - тренировочные данные
+Синяя - данные для валидации(проверки качества) <br/>
+Розовая  - тренировочные данные
 ### epoch categorical accuracy
 ![](./graphic/epoch_categorical_accuracy(2).svg)
 ### epoch loss
