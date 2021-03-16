@@ -88,7 +88,7 @@ def main():
 
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   for x, y in dataset.take(1):
-    print(x, y)
+    print(x)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
