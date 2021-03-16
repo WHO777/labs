@@ -45,6 +45,10 @@ def normalize(image, label):
   return tf.image.per_image_standardization(image), label
 
 
+def kekw(image, label)
+  image = tf.cast(image, tf.int32)
+  return image*255, label
+
 def create_dataset(filenames, batch_size):
   """Create dataset from tfrecords file
   :tfrecords_files: Mask to collect tfrecords file of dataset
@@ -53,18 +57,19 @@ def create_dataset(filenames, batch_size):
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
-    .map(normalize)\
+    #.map(normalize)\
+    .map(kekw)\
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
 
-def build_model():
+'''def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   outputs = EfficientNetB0(include_top=True, weights=None, classes=NUM_CLASSES)(inputs)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)
+  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
 
 
-'''def build_model():
+def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   model = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=inputs)
   model.trainable = False
@@ -74,7 +79,7 @@ def build_model():
   #x = tf.keras.layers.Dropout(0.2)(x)
   #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax")(x)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
+  return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 def main():
   args = argparse.ArgumentParser()
