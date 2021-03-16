@@ -47,7 +47,7 @@ def normalize(image, label):
 
 def kekw(image, label):
   image *= 255
-  label *= 100
+  #label *= 100
   image = tf.cast(image, tf.int64)
   return image, label
 
