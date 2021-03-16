@@ -47,7 +47,7 @@ def normalize(image, label):
 
 def kekw(image, label):
   image = tf.clip_by_value(image, 0, 255)
-  image = tf.cast(image, tf.int64)
+ # image = tf.cast(image, tf.int64)
   return image, label
 
 def create_dataset(filenames, batch_size):
@@ -86,7 +86,7 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
-  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE).shuffle(8)
+  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   for x, y in dataset.take(1):
     print(x, y)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
