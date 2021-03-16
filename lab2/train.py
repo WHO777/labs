@@ -46,9 +46,10 @@ def normalize(image, label):
 
 
 def kekw(image, label):
+  image *= 255
   image = tf.cast(image, tf.int32)
   label = tf.cast(label, tf.int32)
-  return image*255, label
+  return image, label
 
 def create_dataset(filenames, batch_size):
   """Create dataset from tfrecords file
@@ -59,6 +60,7 @@ def create_dataset(filenames, batch_size):
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
     .map(kekw)\
+    .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
 
