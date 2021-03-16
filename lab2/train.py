@@ -58,7 +58,7 @@ def create_dataset(filenames, batch_size):
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
-    .map(kekw)\
+    #.map(kekw)\
     .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE) 
 
@@ -87,6 +87,8 @@ def main():
   args = args.parse_args()
 
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE).shuffle(8)
+  for x, y in dataset.take(1):
+    print(x, y)
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
@@ -101,14 +103,14 @@ def main():
   )
 
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
-  model.fit(
+  '''model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )
+  )'''
 
 
 if __name__ == '__main__':
