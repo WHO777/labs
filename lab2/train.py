@@ -45,7 +45,7 @@ def normalize(image, label):
   return tf.image.per_image_standardization(image), label
 
 
-def kekw(image, label)
+def kekw(image, label):
   image = tf.cast(image, tf.int32)
   return image*255, label
 
