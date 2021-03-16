@@ -23,7 +23,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -46,8 +46,7 @@ def normalize(image, label):
 
 
 def kekw(image, label):
-  image *= 255
-  #label *= 100
+  image = tf.clip_by_value(image, 0, 255)
   image = tf.cast(image, tf.int64)
   return image, label
 
