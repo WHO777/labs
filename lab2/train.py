@@ -46,9 +46,9 @@ def normalize(image, label):
 
 
 def kekw(image, label):
-  image = tf.clip_by_value(image, 0, 255)
- # image = tf.cast(image, tf.int64)
-  return image, label
+  image = tf.cast(image, tf.int64)
+  label = tf.cast(label, tf.int32)
+  return image*255, label
 
 def create_dataset(filenames, batch_size):
   """Create dataset from tfrecords file
