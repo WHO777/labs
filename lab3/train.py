@@ -97,8 +97,8 @@ def main():
     return lrate
   
 
-  lrs = [lambda epoch: 0.1, lambda epoch:0.01, 
-         lambda epoch:0.001, lambda epoch:0.0001, 
+  lrs = [lambda epoch: 0.1, lambda epoch: 0.01, 
+         lambda epoch: 0.001, lambda epoch:0.0001, 
          exp_sheduler, step_sheduler]
   
   for i in range(len(lrs)):
@@ -108,10 +108,10 @@ def main():
       loss=tf.keras.losses.categorical_crossentropy,
       metrics=[tf.keras.metrics.categorical_accuracy],
     )
-    if(lrs[i].__class__.__name__ == 'function'): 
-      log_dir='{}/{}'.format(LOG_DIR, lrs[i].__name__)
-    else:
+    if(lrs[i].__name__ == '<lambda>'): 
       log_dir='{}/lr_{}'.format(LOG_DIR, lrs[i](0))
+    else:
+      log_dir='{}/{}'.format(LOG_DIR, lrs[i].__name__)
     model.fit(
       train_dataset,
       epochs=50,
