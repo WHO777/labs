@@ -110,7 +110,7 @@ def main():
       ]
     )
 
-    log_dir='{}/step_drop{}_epoch{}'.format(LOG_DIR, drop[i], epoch_drop[i])
+    log_dir='{}/step_drop{}_epochs{}'.format(LOG_DIR, drop[i], epochs_drop[i])
     model.fit(
       train_dataset,
       epochs=50,
