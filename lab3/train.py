@@ -105,8 +105,8 @@ def main():
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
-  print('\n\n', type(lrs[4]))
-  if(type(lrs[4]) == "<class 'function'>"): print('kekw')
+  print('\n\n', lrs[4].__class__.__name__)
+  if(lrs[4].__class__.__name__ == 'function': print('kekw')
   log_dir='{}/{}'.format(LOG_DIR, lrs[4])
   model.fit(
     train_dataset,
