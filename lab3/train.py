@@ -105,7 +105,7 @@ def main():
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
-
+  print(type(lrs[4]))
   log_dir='{}/{}'.format(LOG_DIR, lrs[4])
   model.fit(
     train_dataset,
