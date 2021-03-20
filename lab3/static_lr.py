@@ -81,22 +81,6 @@ def main():
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
  
-  
-  def exp_sheduler(epoch):
-    initial_lrate = 0.1
-    k = 0.1
-    lrate = initial_lrate * math.exp(-k*epoch)
-    return lrate
-  
-  
-  def step_sheduler(epoch):
-    initial_lrate = 0.1
-    drop = 0.5
-    epochs_drop = 10.0
-    lrate = initial_lrate * math.pow(drop,  
-           math.floor((1+epoch)/epochs_drop))
-    return lrate
-  
 
   lrs = [lambda epoch: 0.1, lambda epoch: 0.01, 
          lambda epoch: 0.001, lambda epoch:0.0001 ]
