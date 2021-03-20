@@ -60,7 +60,7 @@ def create_dataset(filenames, batch_size):
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
     .batch(batch_size)\
-    .prefetch(tf.data.AUTOTUNE) 
+    .prefetch(tf.data.AUTOTUNE)
 
 
 '''def build_model():
