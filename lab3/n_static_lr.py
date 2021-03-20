@@ -82,7 +82,7 @@ def main():
   validation_dataset = dataset.skip(train_size)
  
 
-  k = [0.7]
+  k = [0.8]
   drop = [0.4]
   epochs_drop = [5]
 
