@@ -103,17 +103,17 @@ def main():
          exp_sheduler, step_sheduler]
   
   #for i in range(len(lrs)):
-   model = build_model()
-   model.compile(
+  model = build_model()
+  model.compile(
       optimizer=tf.optimizers.Adam(),
       loss=tf.keras.losses.categorical_crossentropy,
       metrics=[tf.keras.metrics.categorical_accuracy],
     )
-   if(lrs[5].__name__ == '<lambda>'): 
-     log_dir='{}/lr_{}'.format(LOG_DIR, lrs[5](0))
-   else:
-     log_dir='{}/{}'.format(LOG_DIR, lrs[5].__name__)
-   model.fit(
+  if(lrs[5].__name__ == '<lambda>'): 
+    log_dir='{}/lr_{}'.format(LOG_DIR, lrs[5](0))
+  else:
+    log_dir='{}/{}'.format(LOG_DIR, lrs[5].__name__)
+  model.fit(
       train_dataset,
       epochs=50,
       validation_data=validation_dataset,
