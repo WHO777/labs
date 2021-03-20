@@ -82,11 +82,11 @@ def main():
   validation_dataset = dataset.skip(train_size)
  
 
-  k = [0.8]
-  drop = [0.4]
-  epochs_drop = [5]
+  k = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+  drop = [0.99, 0.95, 0.5, 0.4, 0.35, 0.3, 0.1]
+  epochs_drop = [1, 2, 10, 7, 7, 5, 15]
 
-  for i in range(1):
+  for i in range(7):
 
     exp_sheduler = lambda epoch: 0.1 * math.exp(-k[i]*epoch)
     step_sheduler = lambda epoch: 0.1 * math.pow(drop[i],  
