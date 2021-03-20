@@ -96,7 +96,7 @@ def main():
     return lrate
   
   
-  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler, step_sheduler]
+  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler(), step_sheduler()]
   
   model = build_model()
   model.compile(
