@@ -78,15 +78,34 @@ def main():
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
-
+ 
+  
+  def exp_sheduler(epoch, lr):
+    initial_lrate = 0.1
+    k = 0.1
+    lrate = initial_lrate * exp(-k*epoch)
+    return lrate
+  
+  
+  def step_sheduler(epoch, lr):
+    initial_lrate = 0.1
+    drop = 0.5
+    epochs_drop = 10.0
+    lrate = initial_lrate * math.pow(drop,  
+           math.floor((1+epoch)/epochs_drop))
+    return lrate
+  
+  
+  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler, step_sheduler]
+  
   model = build_model()
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.001),
+    optimizer=tf.optimizers.Adam(lr=lrs[4]),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
 
-  log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
+  log_dir='{}/{}'.format(LOG_DIR, lrs[4])
   model.fit(
     train_dataset,
     epochs=50,
