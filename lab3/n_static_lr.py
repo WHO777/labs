@@ -82,9 +82,9 @@ def main():
   validation_dataset = dataset.skip(train_size)
  
 
-  k = [0.1, 0.2, 0.3, 0.4]
-  drop = [0.99, 0.5, 0.4, 0.3]
-  epochs_drop = [1, 10, 7, 5]
+  k = [0.5, 0.6, 0.7]
+  drop = [0.95, 0.1, 0.35, 0.4]
+  epochs_drop = [2, 15, 7, 5]
 
   for i in range(4):
 
