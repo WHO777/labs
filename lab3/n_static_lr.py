@@ -84,7 +84,7 @@ def main():
 
   k = [0.1, 0.2, 0.3, 0.4]
   drop = [0.99, 0.5, 0.4, 0.3]
-  epoch_drop = [1, 10, 7, 5]
+  epochs_drop = [1, 10, 7, 5]
 
   for i in range(4):
 
