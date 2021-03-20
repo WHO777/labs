@@ -96,11 +96,11 @@ def main():
     return lrate
   
   
-  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler(), step_sheduler()]
+  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler, step_sheduler]
   
   model = build_model()
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=lrs[4]),
+    optimizer=tf.optimizers.Adam(),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
@@ -112,6 +112,7 @@ def main():
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
+      tf.keras.callbacks.LearningRateScheduler(lrs[4])
     ]
   )
 
