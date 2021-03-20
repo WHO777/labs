@@ -99,27 +99,23 @@ def main():
   
 
   lrs = [lambda epoch: 0.1, lambda epoch: 0.01, 
-         lambda epoch: 0.001, lambda epoch:0.0001, 
-         exp_sheduler, step_sheduler]
+         lambda epoch: 0.001, lambda epoch:0.0001 ]
   
-  #for i in range(len(lrs)):
-  model = build_model()
-  model.compile(
+  for i in range(len(lrs)):
+    model = build_model()
+    model.compile(
       optimizer=tf.optimizers.Adam(),
       loss=tf.keras.losses.categorical_crossentropy,
       metrics=[tf.keras.metrics.categorical_accuracy],
     )
-  if(lrs[5].__name__ == '<lambda>'): 
-    log_dir='{}/lr_{}'.format(LOG_DIR, lrs[5](0))
-  else:
-    log_dir='{}/{}'.format(LOG_DIR, lrs[5].__name__)
-  model.fit(
+    log_dir='{}/lr_{}'.format(LOG_DIR, lrs[i](0))
+    model.fit(
       train_dataset,
       epochs=50,
       validation_data=validation_dataset,
       callbacks=[
         tf.keras.callbacks.TensorBoard(log_dir),
-        tf.keras.callbacks.LearningRateScheduler(lrs[5])
+        tf.keras.callbacks.LearningRateScheduler(lrs[i])
       ]
     )
 
