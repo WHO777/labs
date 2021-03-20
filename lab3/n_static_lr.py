@@ -89,7 +89,7 @@ def main():
   for i in range(4):
 
     exp_sheduler = lambda epoch: 0.1 * math.exp(-k[i]*epoch)
-    step_sheduler = lambda epoch: 0.1 * * math.pow(drop[i],  
+    step_sheduler = lambda epoch: 0.1 * math.pow(drop[i],  
            math.floor((1+epoch)/epochs_drop[i]))
 
     model = build_model()
