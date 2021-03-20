@@ -11,6 +11,7 @@ import glob
 import numpy as np
 import tensorflow as tf
 import time
+import math
 from math import exp
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.python import keras as keras
@@ -84,7 +85,7 @@ def main():
   def exp_sheduler(epoch):
     initial_lrate = 0.1
     k = 0.1
-    lrate = initial_lrate * exp(-k*epoch)
+    lrate = initial_lrate * math.exp(-k*epoch)
     return lrate
   
   
