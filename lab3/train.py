@@ -81,14 +81,14 @@ def main():
   validation_dataset = dataset.skip(train_size)
  
   
-  def exp_sheduler(epoch, lr):
+  def exp_sheduler(epoch):
     initial_lrate = 0.1
     k = 0.1
     lrate = initial_lrate * exp(-k*epoch)
     return lrate
   
   
-  def step_sheduler(epoch, lr):
+  def step_sheduler(epoch):
     initial_lrate = 0.1
     drop = 0.5
     epochs_drop = 10.0
@@ -96,27 +96,32 @@ def main():
            math.floor((1+epoch)/epochs_drop))
     return lrate
   
+
+  lrs = [lambda epoch: 0.1, lambda epoch:0.01, 
+         lambda epoch:0.001, lambda epoch:0.0001, 
+         exp_sheduler, step_sheduler]
   
-  lrs = [0.1, 0.01, 0.001, 0.0001, exp_sheduler, step_sheduler]
-  
-  model = build_model()
-  model.compile(
-    optimizer=tf.optimizers.Adam(),
-    loss=tf.keras.losses.categorical_crossentropy,
-    metrics=[tf.keras.metrics.categorical_accuracy],
-  )
-  print('\n\n', lrs[0].__class__.__name__)
-  if(lrs[4].__class__.__name__ == 'function'): log_dir='{}/{}'.format(LOG_DIR, lrs[4].__name__)
-  else:log_dir='{}/{}'.format(LOG_DIR, lrs[4])
-  model.fit(
-    train_dataset,
-    epochs=50,
-    validation_data=validation_dataset,
-    callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),
-      tf.keras.callbacks.LearningRateScheduler(lrs[4])
-    ]
-  )
+  for i in range(len(lrs)):
+    model = build_model()
+    model.compile(
+      optimizer=tf.optimizers.Adam(),
+      loss=tf.keras.losses.categorical_crossentropy,
+      metrics=[tf.keras.metrics.categorical_accuracy],
+    )
+    if(lrs[i].__class__.__name__ == 'function'): 
+      log_dir='{}/{}'.format(LOG_DIR, lrs[i].__name__)
+    else:
+      log_dir='{}/lr_{}'.format(LOG_DIR, lrs[i](0))
+    model.fit(
+      train_dataset,
+      epochs=50,
+      validation_data=validation_dataset,
+      callbacks=[
+        tf.keras.callbacks.TensorBoard(log_dir),
+        tf.keras.callbacks.LearningRateScheduler(lrs[i])
+      ]
+    )
+    print(f'lr = {lrs[i]} is end')
 
 
 if __name__ == '__main__':
