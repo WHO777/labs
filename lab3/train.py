@@ -106,7 +106,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
   print('\n\n', lrs[0].__class__.__name__)
-  if(lrs[4].__class__.__name__ == 'function'): log_dir='{}/{}'.format(LOG_DIR, lrs[4].func_name)
+  if(lrs[4].__class__.__name__ == 'function'): log_dir='{}/{}'.format(LOG_DIR, lrs[4].__name__)
   else:log_dir='{}/{}'.format(LOG_DIR, lrs[4])
   model.fit(
     train_dataset,
