@@ -18,7 +18,7 @@ lrate = initial_lrate * exp(-k * num_epoch)
 ```
 ### Ниже предсавлены графики тренировки нейронной сети с темпом обучения изменяющегося по экспоненциальному закону с параметрами: </br>
 ```initial_lrate = 0.1``` </br>
-```k = 0.1, 0,2, ..., 0.5``` </br>
+```k = 0.1, 0,2, ..., 0.5``` </br> </br>
 ![изображение](https://user-images.githubusercontent.com/61012068/111904308-505d1f00-8a57-11eb-92b4-b09483f01d86.png)
 
 ### epoch categorical accuracy
