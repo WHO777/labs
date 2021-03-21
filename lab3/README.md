@@ -25,7 +25,7 @@ lrate = initial_lrate * exp(-k * num_epoch)
 ### epoch loss
 ![](./graphic/exp_loss.svg)
 
-# Анализ
+## Анализ
 
 ### Формула
 ```python
