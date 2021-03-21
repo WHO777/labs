@@ -33,9 +33,9 @@ lrate = initial_lrate * exp(-k * num_epoch)
 lrate = initial_lrate * drop^floor(epoch / epochs_drop) 
 ```
 ## Ниже предсавлены графики тренировки нейронной сети с темпом обучения изменяющегося по "ступенчатому" законус парамаетрами: </br>
-```initial_lrate = 0.1``` </br>
-```drop = 0.99, 0.95, 0.5, 0.4, 0.35, 0.3, 0.1``` </br>
-```epochs_drop = 1, 2, 10, 7, 7, 5, 1``` </br>
+```initial_lrate = 0.1``` </br> </br>
+```drop = 0.99, 0.95, 0.5, 0.4, 0.35, 0.3, 0.1``` </br> </br>
+```epochs_drop = 1, 2, 10, 7, 7, 5, 1``` </br> </br> 
 ![изображение](https://user-images.githubusercontent.com/61012068/111904315-59e68700-8a57-11eb-9088-8b8d958053a3.png)
 
 ### epoch categorical accuracy
