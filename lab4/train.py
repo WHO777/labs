@@ -43,7 +43,10 @@ def parse_proto_example(proto):
 
 
 def add_noise(image, label):
-  return transforms(image), label
+  transforms = A.Compose([
+    A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
+  ])
+  return transforms(image=image), label
 
 
 def create_dataset(filenames, batch_size):
@@ -80,11 +83,13 @@ def main():
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   
-  test_image = next(iter(dataset.take(1)))
+  test_image = dataset.take(1)
+  for x, y in test_image:
+    kek = add_noise(x, y)
   print(test_image)
   
   
-  train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
+  '''train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
 
@@ -96,7 +101,7 @@ def main():
   )
 
   log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
-  '''model.fit(
+  model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
