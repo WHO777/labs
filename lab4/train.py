@@ -78,9 +78,8 @@ def main():
 
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
-  image = Image.open
-  test_image = dataset.take(1)
-  kek = test_image.map(add_noise)
+  test_image, label = dataset.take(1)
+  kek = add_noise(test_image, label)
   
   
   
