@@ -76,9 +76,6 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
-  transforms = A.Compose([
-  A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
-])
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   image = Image.open
