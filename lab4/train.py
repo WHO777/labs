@@ -82,7 +82,7 @@ def main():
   for i, (x, y) in enumerate(test_image):
     plt.figure(i + 1)
     plt.imshow(x)
-    plt.savefig(f'/test/orig_{i}')
+    plt.savefig(f'orig_{i}')
   
   
   
