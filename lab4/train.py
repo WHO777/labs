@@ -80,9 +80,8 @@ def main():
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   image = Image.open
   test_image = dataset.take(1)
-  for x, y in test_image:
-    kek = add_noise(x, y)
-  print(test_image)
+  kek = add_noise(test_image)
+  
   
   
   '''train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
