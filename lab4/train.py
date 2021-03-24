@@ -82,6 +82,7 @@ def main():
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   
   test_image = next(iter(dataset.take(1)))
+  print(test_image)
   
   
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
