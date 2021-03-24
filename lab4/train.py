@@ -12,6 +12,7 @@ import numpy as np
 import tensorflow as tf
 import time
 import albumentations as A
+from PIL import Image
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
@@ -46,7 +47,7 @@ def add_noise(image, label):
   transforms = A.Compose([
     A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
   ])
-  return transforms(image=image.numpy), label
+  return transforms(image=image), label
 
 
 def create_dataset(filenames, batch_size):
@@ -56,7 +57,6 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .cache()\
     .prefetch(tf.data.AUTOTUNE)
 
 
@@ -82,7 +82,7 @@ def main():
 ])
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
-  
+  image = Image.open
   test_image = dataset.take(1)
   for x, y in test_image:
     kek = add_noise(x, y)
