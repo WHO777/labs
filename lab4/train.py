@@ -42,11 +42,6 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-transforms = A.Compose([
-  A.transforms.GaussNoise(var_limit=(10.0, 50.0), mean=0, per_channel=True, always_apply=False, p=0.5) 
-])
-
-
 def add_noise(image, label):
   return transforms(image), label
 
@@ -79,6 +74,10 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
+  transforms = A.Compose([
+  A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
+])
+  
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   
   test_image = next(iter(dataset.take(1)))
