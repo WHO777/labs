@@ -79,7 +79,7 @@ def main():
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   test_image = dataset.take(1)
-  for i (x, y) in enumerate(test_image):
+  for i, (x, y) in enumerate(test_image):
     plt.figure(i + 1)
     plt.imshow(x)
     plt.savefig(f'/test/orig_{i}')
