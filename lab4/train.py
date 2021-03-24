@@ -78,8 +78,11 @@ def main():
 
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
-  test_image, label = dataset.take(1)
-  kek = add_noise(test_image, label)
+  test_image = dataset.take(1)
+  for i (x, y) in enumerate(test_image):
+    plt.figure(i + 1)
+    plt.imshow(x)
+    plt.savefig(f'/test/orig_{i}')
   
   
   
