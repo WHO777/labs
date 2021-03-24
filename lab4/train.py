@@ -42,8 +42,13 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-def normalize(image, label):
-  return tf.image.per_image_standardization(image), label
+transforms = A.Compose([
+  A.transforms.GaussNoise(var_limit=(10.0, 50.0), mean=0, per_channel=True, always_apply=False, p=0.5) 
+])
+
+
+def add_noise(image, label):
+  return transforms(image), label
 
 
 def create_dataset(filenames, batch_size):
@@ -54,7 +59,6 @@ def create_dataset(filenames, batch_size):
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .cache()\
-    .batch(batch_size)\
     .prefetch(tf.data.AUTOTUNE)
 
 
@@ -76,6 +80,10 @@ def main():
   args = args.parse_args()
 
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
+  
+  test_image = next(iter(dataset.take(1)))
+  
+  
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
