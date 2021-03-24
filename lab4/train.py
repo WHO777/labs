@@ -47,7 +47,7 @@ def add_noise(image, label):
   transforms = A.Compose([
     A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
   ])
-  return transforms(image=image.numpy), label
+  return transforms(image=image.numpy)['image'], label
 
 
 def create_dataset(filenames, batch_size):
