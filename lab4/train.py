@@ -98,10 +98,10 @@ def main():
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   
-  for i, (x, y) in enumerate(dataset.take(10)):
+  '''for i, (x, y) in enumerate(dataset.take(10)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
-    plt.savefig(output_path)
+    plt.savefig(output_path)''''
   
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
