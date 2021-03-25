@@ -3,11 +3,11 @@ import albumentations as A
 class Aug_fn():
   
   def switch_func(name):
-     return { 
+     return 0 '''{ 
        'randomBC': A.Compose([
          A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
         ])
-     }.get(name)
+     }.get(name)'''
     
 def main():
   aug = Aug_fn()
