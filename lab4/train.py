@@ -75,6 +75,7 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(partial(aug_fn), num_parallel_calls=tf.data.AUTOTUNE)\
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
@@ -115,14 +116,14 @@ def main():
   )
 
   log_dir='{}/BrightnessContrast{}'.format(LOG_DIR, time.time())
-  model.fit(
+  '''model.fit(
     train_dataset,
     epochs=50,
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )
+  )'''
 
 
 if __name__ == '__main__':
