@@ -1,6 +1,8 @@
 import albumentations as A
 
 class Aug_fn():
+  def __init__(self):
+    pass
   
   def switch_func(name):
      return { 
