@@ -14,7 +14,7 @@ class Aug_fn():
 def main():
   aug = Aug_fn()
   kek = aug.get_method("randomBC")
-  image = np.zeros((224,224,1))
+  image = kek(image=np.zeros((224,224,1)))
   plt.imshow(image)
   plt.savefig('kek.jpg')
   
