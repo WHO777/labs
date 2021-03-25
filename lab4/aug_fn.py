@@ -13,3 +13,7 @@ def main():
   aug = Aug_fn()
   kek = aug.switch_func('randomBC')
   print(kek)
+
+  
+if __name__ == '__main__':
+    main()
