@@ -45,12 +45,12 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-def aug_fn(image, label, p):
-  print(p)
-  def BrightnessContrast(image):
+def aug_fn(image, label, transforms):
+  
+  '''def BrightnessContrast(image):
     transforms = A.Compose([
       A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
-    ])
+    ])'''
     data = {"image":image}
     aug_data = transforms(**data)
     aug_img = aug_data["image"]
@@ -68,14 +68,14 @@ def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
 
 
 
-def create_dataset(filenames, batch_size):
+def create_dataset(filenames, batch_size, transforms):
   """Create dataset from tfrecords file
   :tfrecords_files: Mask to collect tfrecords file of dataset
   :returns: tf.data.Dataset
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .map(partial(aug_fn, p='ooo'), num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(partial(aug_fn, transforms=transforms), num_parallel_calls=tf.data.AUTOTUNE)\
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
@@ -97,33 +97,40 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
-  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
+  for brightness in [0.2, 0.5, 0.7]:
+    for contrast in [0.1, 0.4, 0.6]:
+      for p in [0.5, 1]:
+        transforms = A.Compose([
+            A.RandomBrightnessContrast(brightness_limit=brightness, contrast_limit=contrast, p=p),
+          ])
+        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-  '''for i, (x, y) in enumerate(dataset.take(10)):
-    plt.imshow(x[i])
-    output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
-    plt.savefig(output_path)'''
-  
-  train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-  train_dataset = dataset.take(train_size)
-  validation_dataset = dataset.skip(train_size)
+        for i, (x, y) in enumerate(dataset.take(10)):
+          plt.imshow(x[i])
+          output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
+          plt.savefig(output_path)
 
-  model = build_model()
-  model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.001),
-    loss=tf.keras.losses.categorical_crossentropy,
-    metrics=[tf.keras.metrics.categorical_accuracy],
-  )
+        train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
+        train_dataset = dataset.take(train_size)
+        validation_dataset = dataset.skip(train_size)
 
-  log_dir='{}/BrightnessContrast{}'.format(LOG_DIR, time.time())
-  '''model.fit(
-    train_dataset,
-    epochs=50,
-    validation_data=validation_dataset,
-    callbacks=[
-      tf.keras.callbacks.TensorBoard(log_dir),
-    ]
-  )'''
+        model = build_model()
+        model.compile(
+          optimizer=tf.optimizers.Adam(lr=0.001),
+          loss=tf.keras.losses.categorical_crossentropy,
+          metrics=[tf.keras.metrics.categorical_accuracy],
+        )
+
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
+        print(log_dir)
+        model.fit(
+          train_dataset,
+          epochs=50,
+          validation_data=validation_dataset,
+          callbacks=[
+            tf.keras.callbacks.TensorBoard(log_dir),
+          ]
+        )
 
 
 if __name__ == '__main__':
