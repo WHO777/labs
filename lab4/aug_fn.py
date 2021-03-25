@@ -1,6 +1,6 @@
 import albumentation as A
 
-class aug_fn():
+class Aug_fn():
   
   def switch_func(name):
      return { 
@@ -9,3 +9,7 @@ class aug_fn():
         ])
      }.get(value)(name)
     
+def main():
+  aug = Aug_fn()
+  kek = aug.switch_func('randomBC')
+  print(kek)
