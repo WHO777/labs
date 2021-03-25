@@ -1,10 +1,10 @@
 import albumentations as A
+import numpy as np
+import matplotlib.pyplot as plt
 
 class Aug_fn():
-  def __init__(self):
-    pass
   
-  def switch_func(self, name):
+  def get_method(self, name):
      return { 
        'randomBC': A.Compose([
          A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
@@ -13,7 +13,11 @@ class Aug_fn():
    
 def main():
   aug = Aug_fn()
-  kek = aug.switch_func("randomBC")
+  kek = aug.get_method("randomBC")
+  image = np.zeros((224,224,1))
+  plt.imshow(image)
+  plt.savefig('kek.jpg')
+  
   print(kek)
 
   
