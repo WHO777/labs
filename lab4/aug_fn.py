@@ -13,7 +13,7 @@ class Aug_fn():
    
 def main():
   aug = Aug_fn()
-  kek = aug.switch_func("e")
+  kek = aug.switch_func("randomBC")
   print(kek)
 
   
