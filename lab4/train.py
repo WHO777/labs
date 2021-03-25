@@ -51,12 +51,14 @@ def parse_proto_example(proto):
     ])'''
   
 def aug_fn(image, label, transforms):
-    data = {"image":image}
-    aug_data = transforms(**data)
-    aug_img = aug_data["image"]
-    aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
-    aug_img = tf.cast(aug_img, tf.uint8)
-    return aug_img
+  
+    def BrightnessContrast(image):
+      data = {"image":image}
+      aug_data = transforms(**data)
+      aug_img = aug_data["image"]
+      aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+      aug_img = tf.cast(aug_img, tf.uint8)
+      return aug_img
 
   aug_image = tf.numpy_function(func=BrightnessContrast, inp=[image], Tout=(tf.uint8))
   return aug_image, label
@@ -76,6 +78,7 @@ def create_dataset(filenames, batch_size, transforms):
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
     .map(partial(aug_fn, transforms=transforms), num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(set_shapes, num_parallel_calls=tf.data.AUTOTUNE)\
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
