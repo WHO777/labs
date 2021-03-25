@@ -17,7 +17,7 @@ def main():
   kek = aug.get_method("randomBC")
   image = np.array(Image.open('0.jpg'), dtype=np.uint8)
   aug_image = kek(image=image)
-  plt.imshow(image)
+  plt.imshow(aug_image['image'])
   plt.savefig('kek.jpg')
 
   
