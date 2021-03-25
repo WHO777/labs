@@ -45,8 +45,8 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-def aug_fn(image, label):
-
+def aug_fn(image, label, p):
+  print(p)
   def BrightnessContrast(image):
     transforms = A.Compose([
       A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
@@ -75,7 +75,7 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .map(partial(aug_fn), num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(lambda x, y: partial(aug_fn, x, y, 'oooo'), num_parallel_calls=tf.data.AUTOTUNE)\
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
