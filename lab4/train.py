@@ -43,11 +43,27 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-def add_noise(image, label):
-  transforms = A.Compose([
-    A.augmentations.transforms.GaussNoise(var_limit=(10.0, 50.0), p=0.5) 
-  ])
-  return transforms(image=image.numpy()), label
+def aug_fn(image, label):
+
+  def add_noise(image):
+    transforms = A.Compose([
+      A.RandomBrightnessContrast(brightness_limit=1, contrast_limit=1, p=1.0),
+    ])
+    data = {"image":image}
+    aug_data = transforms(**data)
+    aug_img = aug_data["image"]
+    aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+    aug_img = tf.cast(aug_img, tf.uint8)
+    return aug_img
+
+  aug_image = tf.numpy_function(func=add_noise, inp=[image], Tout=(tf.uint8))
+  return aug_image, label
+
+
+def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
+    img.set_shape(img_shape)
+    return img, label
+
 
 
 def create_dataset(filenames, batch_size):
@@ -57,7 +73,9 @@ def create_dataset(filenames, batch_size):
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .cache()\
+    .map(partial(aug_fn), num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(set_shapes, num_parallel_calls=tf.data.AUTOTUNE)\
+    .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
 
@@ -77,18 +95,15 @@ def main():
   args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
-
   
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
-  test_image = dataset.take(1)
-  for i, (x, y) in enumerate(test_image):
-    plt.figure(i + 1)
+  
+  for i, (x, y) in enumerate(dataset.take(10)):
     plt.imshow(x)
-    plt.savefig(f'orig_{i}')
+    output_path = os.path.join('/examples/RandomBrightnessContrast/',str(i)+'.jpg')            
+    plt.savefig(output_path)
   
-  
-  
-  '''train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
+  train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
 
@@ -107,7 +122,7 @@ def main():
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
     ]
-  )'''
+  )
 
 
 if __name__ == '__main__':
