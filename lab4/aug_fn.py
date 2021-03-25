@@ -15,9 +15,9 @@ def main():
   aug = Aug_fn()
   kek = aug.get_method("randomBC")
   image = kek(image=np.zeros((224,224,1), dtype=np.uint8))
-  print(image.shape)
-  plt.imshow(image)
-  plt.savefig('kek.jpg')
+  print(image['image'])
+  #plt.imshow(image)
+  #plt.savefig('kek.jpg')
   
   print(kek)
 
