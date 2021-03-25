@@ -1,6 +1,7 @@
 import albumentations as A
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
 
 class Aug_fn():
   
@@ -14,9 +15,9 @@ class Aug_fn():
 def main():
   aug = Aug_fn()
   kek = aug.get_method("randomBC")
-  image = kek(image=np.zeros((224,224,1), dtype=np.uint8))
-  print(image['image'].shape)
-  plt.imshow(image['image'])
+  image = np.array(Image.open('0.jpg')
+  aug_image = kek(image=image, dtype=np.uint8))
+  plt.imshow(image)
   plt.savefig('kek.jpg')
 
   
