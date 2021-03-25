@@ -60,8 +60,8 @@ def aug_fn(image, label, transforms):
       aug_img = tf.cast(aug_img, tf.uint8)
       return aug_img
 
-  aug_image = tf.numpy_function(func=BrightnessContrast, inp=[image], Tout=(tf.uint8)
-  return aug_image, label
+    aug_image = tf.numpy_function(func=BrightnessContrast, inp=[image], Tout=(tf.uint8))
+    return aug_image, label
 
 
 def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
