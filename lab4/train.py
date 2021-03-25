@@ -47,9 +47,9 @@ def parse_proto_example(proto):
 
 def aug_fn(image, label):
 
-  def add_noise(image):
+  def BrightnessContrast(image):
     transforms = A.Compose([
-      A.RandomBrightnessContrast(brightness_limit=1, contrast_limit=1, p=1.0),
+      A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
     ])
     data = {"image":image}
     aug_data = transforms(**data)
@@ -58,7 +58,7 @@ def aug_fn(image, label):
     aug_img = tf.cast(aug_img, tf.uint8)
     return aug_img
 
-  aug_image = tf.numpy_function(func=add_noise, inp=[image], Tout=(tf.uint8))
+  aug_image = tf.numpy_function(func=BrightnessContrast, inp=[image], Tout=(tf.uint8))
   return aug_image, label
 
 
@@ -114,7 +114,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
 
-  log_dir='{}/owl-{}'.format(LOG_DIR, time.time())
+  log_dir='{}/BrightnessContrast{}'.format(LOG_DIR, time.time())
   model.fit(
     train_dataset,
     epochs=50,
