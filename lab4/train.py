@@ -45,12 +45,12 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-def aug_fn(image, label, transforms):
-  
   '''def BrightnessContrast(image):
     transforms = A.Compose([
       A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
     ])'''
+  
+def aug_fn(image, label, transforms):
     data = {"image":image}
     aug_data = transforms(**data)
     aug_img = aug_data["image"]
