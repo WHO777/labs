@@ -7,7 +7,7 @@ class Aug_fn():
        'randomBC': lambda name: A.Compose([
          A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
         ])
-     }.get(value)(name)
+     }.get(name)
     
 def main():
   aug = Aug_fn()
