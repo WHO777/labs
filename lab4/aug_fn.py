@@ -1,4 +1,4 @@
-import albumentation as A
+import albumentations as A
 
 class Aug_fn():
   
