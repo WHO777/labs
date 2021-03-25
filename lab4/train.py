@@ -100,7 +100,7 @@ def main():
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
   
   for i, (x, y) in enumerate(dataset.take(10)):
-    plt.imshow(x)
+    plt.imshow(x[i])
     output_path = os.path.join('/examples/RandomBrightnessContrast/',str(i)+'.jpg')            
     plt.savefig(output_path)
   
