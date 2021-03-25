@@ -13,6 +13,7 @@ import tensorflow as tf
 import time
 import albumentations as A
 import matplotlib.pyplot as plt
+from functools import partial
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.python import keras as keras
 from tensorflow.python.keras.callbacks import LearningRateScheduler
