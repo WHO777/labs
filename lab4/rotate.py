@@ -99,7 +99,7 @@ def main():
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   
   for alpha in [90]:
-      for p in [0.5, 1]:
+      for p in [1]:
         transforms = A.Compose([
             A.Rotate(limit=alpha, p=p),
           ])
