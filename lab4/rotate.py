@@ -114,7 +114,7 @@ def main():
         train_dataset = dataset.take(train_size)
         validation_dataset = dataset.skip(train_size)
 
-        model = build_model()
+        '''model = build_model()
         model.compile(
           optimizer=tf.optimizers.Adam(lr=0.001),
           loss=tf.keras.losses.categorical_crossentropy,
@@ -131,7 +131,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )
+        )'''
 
 
 if __name__ == '__main__':
