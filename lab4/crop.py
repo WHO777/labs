@@ -45,11 +45,6 @@ def parse_proto_example(proto):
   example['image'] = tf.image.resize(example['image'], tf.constant([RESIZE_TO, RESIZE_TO]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
-
-  '''def BrightnessContrast(image):
-    transforms = A.Compose([
-      A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
-    ])'''
   
 def aug_fn(image, label, transforms):
   
@@ -102,18 +97,18 @@ def main():
   args = args.parse_args()
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
-  
-  for brightness in [0.5, 0.7]:
-    for contrast in [0.1, 0.4, 0.6]:
+  #    for width in [0.1, 0.4, 0.6]:
+  for height in [180, 200]:
       for p in [0.5, 1]:
+        width = height
         transforms = A.Compose([
-            A.RandomBrightnessContrast(brightness_limit=brightness, contrast_limit=contrast, p=p),
+            A.RandomCrop(height, width, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
           plt.imshow(x[i])
-          output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
+          output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
           plt.savefig(output_path)
 
         train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
@@ -127,7 +122,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
         print(log_dir)
         model.fit(
           train_dataset,
