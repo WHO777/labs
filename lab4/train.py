@@ -101,10 +101,10 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
-  sheduler = lambda epoch: 0.1 * math.exp(-0.3*epoch)
+  sheduler = lambda epoch: 0.1 * math.exp(-0.65*epoch)
   #    for contrast in [0.2, 0.3]:
   for brightness in [0.35]:
-      for p in [0.6]:
+      for p in [1]:
         contrast = brightness
         transforms = A.Compose([
             A.RandomBrightnessContrast(brightness_limit=brightness, contrast_limit=contrast, p=p),
@@ -127,7 +127,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_k0.3'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_k0.65'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
         model.fit(
           train_dataset,
