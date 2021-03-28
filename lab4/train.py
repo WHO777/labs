@@ -133,10 +133,10 @@ def main():
         for x,y in dataset.take(1):
           print(x, y)
         
-        '''for i, (x, y) in enumerate(dataset.take(10)):
+        for i, (x, y) in enumerate(dataset.take(10)):
           plt.imshow(x[i])
-          output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
-          plt.savefig(output_path)'''
+          output_path = os.path.join('examples/RandomBrightnessContrast/test/',str(i)+'.jpg')            
+          plt.savefig(output_path)
 
         train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
         train_dataset = dataset.take(train_size)
