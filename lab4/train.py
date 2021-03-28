@@ -122,7 +122,7 @@ def main():
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   
   for brightness in [[-0.5, -0.5], [-0.5, -0.3], [-0.7, -0.7]]:
-    for contrast in [[1.3, 1.3], [1, 1.3], [1.5, 1.5]]:
+    for contrast in [[0.8, 1.3], [1, 1.3], [1.5, 1.5]]:
       for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
