@@ -121,7 +121,7 @@ def main():
  
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   #    for contrast in [0.2, 0.3]:
-  for brightness in [0.4]:
+  for brightness in [[-0.2, 0.2]]:
     for contrast in [[0.2, 0.5]]:
       for p in [1]:
         #contrast = brightness
