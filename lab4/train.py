@@ -119,11 +119,11 @@ def main():
   args = args.parse_args()
   
  
-  sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
+  sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   
-  for brightness in [[-0.4, -0.4]]:
+  for brightness in [[-0.3, -0.3]]:
     for contrast in [[1, 1]]:
-      for p in [0.5]:
+      for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
             A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
@@ -146,7 +146,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_k0.3'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
         model.fit(
           train_dataset,
