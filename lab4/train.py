@@ -83,6 +83,17 @@ def create_dataset(filenames, batch_size, transforms):
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
+def create_dataset2(filenames, batch_size, transforms):
+  """Create dataset from tfrecords file
+  :tfrecords_files: Mask to collect tfrecords file of dataset
+  :returns: tf.data.Dataset
+  """
+  return tf.data.TFRecordDataset(filenames)\
+    .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
+    .map(bc, num_parallel_calls=tf.data.AUTOTUNE)\
+    .batch(BATCH_SIZE)\
+    .prefetch(tf.data.AUTOTUNE)
+
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
@@ -96,11 +107,18 @@ def build_model():
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 
+def bc(image, label):
+  image = tf.image.adjust_brightness(image, 0.3)
+  image = tf.image.adjust_contrast(images, 2)
+  return image, label
+
+
 def main():
   args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
+ 
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for contrast in [0.2, 0.3]:
   for brightness in [0.51]:
@@ -110,12 +128,15 @@ def main():
         transforms = A.Compose([
             A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
           ])
-        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+        dataset = create_dataset2(glob.glob(args.train), BATCH_SIZE, transforms)
   
-        for i, (x, y) in enumerate(dataset.take(10)):
+        for x,y in dataset.take(1):
+          print(x, y)
+        
+        '''for i, (x, y) in enumerate(dataset.take(10)):
           plt.imshow(x[i])
           output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
-          plt.savefig(output_path)
+          plt.savefig(output_path)'''
 
         train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
         train_dataset = dataset.take(train_size)
@@ -130,7 +151,7 @@ def main():
 
         log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
-        model.fit(
+        '''model.fit(
           train_dataset,
           epochs=50,
           validation_data=validation_dataset,
@@ -138,7 +159,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )
+        )'''
 
 
 if __name__ == '__main__':
