@@ -121,9 +121,9 @@ def main():
  
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for contrast in [0.2, 0.3]:
-  for brightness in [0.51]:
-    for contrast in [0.2]:
-      for p in [0.5]:
+  for brightness in [0.3]:
+    for contrast in [2]:
+      for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
             A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
@@ -149,9 +149,9 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_test'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
-        '''model.fit(
+        model.fit(
           train_dataset,
           epochs=50,
           validation_data=validation_dataset,
@@ -159,7 +159,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )'''
+        )
 
 
 if __name__ == '__main__':
