@@ -123,7 +123,7 @@ def main():
   
   for brightness in [[-0.4, -0.4]]:
     for contrast in [[1, 1]]:
-      for p in [1]:
+      for p in [0.5]:
         #contrast = brightness
         transforms = A.Compose([
             A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
