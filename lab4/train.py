@@ -108,7 +108,7 @@ def main():
       for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
-            A.RandomBrightnessContrast(brightness_limit= *brightness, contrast_limit= *contrast, p=p),
+            A.RandomBrightnessContrast(brightness_limit=brightness, contrast_limit=contrast, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
@@ -128,7 +128,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, *brightness, *contrast, p)
         print(log_dir)
         model.fit(
           train_dataset,
