@@ -108,7 +108,7 @@ def main():
       for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
-            A.RandomBrightnessContrast(brightness_limit=brightness, contrast_limit=contrast, p=p),
+            A.RandomBrightnessContrast(brightness_limit=*brightness, contrast_limit=*contrast, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
