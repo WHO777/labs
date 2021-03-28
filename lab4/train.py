@@ -122,20 +122,17 @@ def main():
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   #    for contrast in [0.2, 0.3]:
   for brightness in [0.3]:
-    for contrast in [2]:
+    for contrast in [0.3]:
       for p in [1]:
         #contrast = brightness
         transforms = A.Compose([
             A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
           ])
-        dataset = create_dataset2(glob.glob(args.train), BATCH_SIZE, transforms)
-  
-        for x,y in dataset.take(1):
-          print(x, y)
-        
+        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+
         for i, (x, y) in enumerate(dataset.take(10)):
           plt.imshow(x[i])
-          output_path = os.path.join('examples/RandomBrightnessContrast/test/',str(i)+'.jpg')            
+          output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
           plt.savefig(output_path)
 
         train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
@@ -149,7 +146,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_test'.format(LOG_DIR, brightness, contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}_k0.3'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
         model.fit(
           train_dataset,
