@@ -119,7 +119,7 @@ def main():
   args = args.parse_args()
   
  
-  sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
+  sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   #    for contrast in [0.2, 0.3]:
   for brightness in [0.3]:
     for contrast in [2]:
