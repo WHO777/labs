@@ -103,12 +103,12 @@ def main():
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for contrast in [0.2, 0.3]:
-  for brightness in [0.2]:
+  for brightness in [0.51]:
     for contrast in [0.2]:
       for p in [0.5]:
         #contrast = brightness
         transforms = A.Compose([
-            A.RandomBrightnessContrast(),
+            A.RandomBrightnessContrast (brightness_limit=brightness, contrast_limit=contrast, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
