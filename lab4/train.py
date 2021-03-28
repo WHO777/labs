@@ -109,7 +109,7 @@ def build_model():
 
 def bc(image, label):
   image = tf.image.adjust_brightness(image, 0.3)
-  image = tf.image.adjust_contrast(images, 2)
+  image = tf.image.adjust_contrast(image, 2)
   return image, label
 
 
