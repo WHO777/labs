@@ -128,7 +128,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, *brightness, *contrast, p)
+        log_dir='{}/BrightnessContrast_b{}_c{}_p{}'.format(LOG_DIR, brightness, contrast, p)
         print(log_dir)
         model.fit(
           train_dataset,
