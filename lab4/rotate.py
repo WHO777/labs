@@ -96,10 +96,10 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
-  sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
+  sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   
-  for alpha in [90]:
-      for p in [1]:
+  for alpha in [15, 30, 45]:
+      for p in [0.25, 0,5, 1]:
         transforms = A.Compose([
             A.Rotate(limit=alpha, p=p),
           ])
@@ -121,7 +121,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Rotate_a{}_p{}'.format(LOG_DIR, alpha, p)
+        log_dir='{}/Rotate_a{}_p{}_k0.3'.format(LOG_DIR, alpha, p)
         print(log_dir)
         model.fit(
           train_dataset,
