@@ -105,7 +105,7 @@ def main():
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-        for i, (x, y) in enumerate(dataset.take(10)):
+        for i, (x, y) in enumerate(dataset.take(30)):
           plt.imshow(x[i])
           output_path = os.path.join('examples/Rotate/',str(i)+'.jpg')            
           plt.savefig(output_path)
