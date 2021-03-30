@@ -98,7 +98,7 @@ def main():
   
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
 
-  width, height, p = 224, 224, 1
+  width, height, p = 224, 224, 0.5
   transforms = A.Compose([
       A.RandomCrop(width, height, p=p),
    ])
