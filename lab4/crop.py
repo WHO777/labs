@@ -52,7 +52,7 @@ def aug_fn(image, label, transforms):
       data = {"image":image}
       aug_data = transforms(**data)
       aug_img = aug_data["image"]
-      aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+      #aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
       aug_img = tf.cast(aug_img, tf.uint8)
       return aug_img
 
