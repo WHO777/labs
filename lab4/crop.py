@@ -119,7 +119,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
    )
 
-  log_dir='{}/CenterCrop_h{}_w{}_p{}_s244'.format(LOG_DIR, height, width, p)
+  log_dir='{}/CenterCrop_h{}_w{}_p1_s244'.format(LOG_DIR, height, width)
   print(log_dir)
   model.fit(
     train_dataset,
