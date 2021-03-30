@@ -102,7 +102,7 @@ def main():
     for max in [2000, 100]:
       for p in [0.5, 1]:
         transforms = A.Compose([
-            A.GaussNoise(var_limit=(min, max), p=p),
+            A.Rotate(),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
