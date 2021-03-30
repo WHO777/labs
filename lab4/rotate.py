@@ -98,14 +98,14 @@ def main():
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   
-  for alpha in [60, 90, 120]:
-      for p in [0.4, 0.5, 0.6]:
+  for alpha in [20]:
+      for p in [1]:
         transforms = A.Compose([
-            A.Rotate(limit=alpha, p=p),
+            A.Rotate(limit=90, interpolation=0, border_mode=0, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-        for i, (x, y) in enumerate(dataset.take(30)):
+        for i, (x, y) in enumerate(dataset.take(10)):
           plt.imshow(x[i])
           output_path = os.path.join('examples/Rotate/',str(i)+'.jpg')            
           plt.savefig(output_path)
@@ -121,7 +121,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Rotate_a{}_p{}'.format(LOG_DIR, alpha, p)
+        log_dir='{}/Rotate_a{}_p{}_NEAREST'.format(LOG_DIR, alpha, p)
         print(log_dir)
         model.fit(
           train_dataset,
