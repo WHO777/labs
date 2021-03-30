@@ -99,13 +99,13 @@ def main():
 
   width, height = 224, 224
   transforms = A.Compose([
-      A.CenterCrop(width, height, p=1),
+      A.RandomCrop(width, height, p=1),
    ])
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
   for i, (x, y) in enumerate(dataset.take(10)):
     plt.imshow(x[i])
-    output_path = os.path.join('examples/CenterCrop/',str(i)+'.jpg')            
+    output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
     plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
@@ -119,7 +119,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
    )
 
-  log_dir='{}/CenterCrop_h{}_w{}_p1_s264'.format(LOG_DIR, height, width)
+  log_dir='{}/RandomCrop_h{}_w{}_p1_s264'.format(LOG_DIR, height, width)
   print(log_dir)
   model.fit(
     train_dataset,
