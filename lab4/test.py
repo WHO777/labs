@@ -119,7 +119,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        '''log_dir='{}/Rotate_a{}_p{}'.format(LOG_DIR, alpha, p)
+        log_dir='{}/test'.format(LOG_DIR)
         print(log_dir)
         model.fit(
           train_dataset,
@@ -129,7 +129,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )'''
+        )
 
 
 if __name__ == '__main__':
