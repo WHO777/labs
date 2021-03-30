@@ -42,7 +42,7 @@ def parse_proto_example(proto):
   example = tf.io.parse_single_example(proto, keys_to_features)
   example['image'] = tf.image.decode_jpeg(example['image/encoded'], channels=3)
   example['image'] = tf.image.convert_image_dtype(example['image'], dtype=tf.uint8)
-  example['image'] = tf.image.resize(example['image'], tf.constant([RESIZE_TO, RESIZE_TO]), method='nearest')
+  example['image'] = tf.image.resize(example['image'], tf.constant([286, 286]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
   
@@ -52,7 +52,7 @@ def aug_fn(image, label, transforms):
       data = {"image":image}
       aug_data = transforms(**data)
       aug_img = aug_data["image"]
-      #aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+      aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
       aug_img = tf.cast(aug_img, tf.uint8)
       return aug_img
 
@@ -60,7 +60,7 @@ def aug_fn(image, label, transforms):
     return aug_image, label
 
 
-def set_shapes(img, label, img_shape=(286, 286, 3)):
+def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
     img.set_shape(img_shape)
     return img, label
 
@@ -102,9 +102,8 @@ def main():
       for p in [1]:
         width = height
         transforms = A.Compose([
-            A.Resize(286, 286),
+            A.RandomCrop(224, 224, p=p),
           ])
-        #          A.RandomCrop(224, 224, p=p),
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
