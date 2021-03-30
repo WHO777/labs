@@ -66,18 +66,18 @@ def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
 
 
 
-def create_dataset(filenames, batch_size, transforms):
+def create_dataset(filenames, batch_size):
   """Create dataset from tfrecords file
   :tfrecords_files: Mask to collect tfrecords file of dataset
   :returns: tf.data.Dataset
   """
   return tf.data.TFRecordDataset(filenames)\
     .map(parse_proto_example, num_parallel_calls=tf.data.AUTOTUNE)\
-    .map(partial(aug_fn, transforms=transforms), num_parallel_calls=tf.data.AUTOTUNE)\
-    .map(set_shapes, num_parallel_calls=tf.data.AUTOTUNE)\
     .batch(BATCH_SIZE)\
     .prefetch(tf.data.AUTOTUNE)
 
+#.map(partial(aug_fn, transforms=transforms), num_parallel_calls=tf.data.AUTOTUNE)\
+#.map(set_shapes, num_parallel_calls=tf.data.AUTOTUNE)\
 
 def build_model():
   inputs = tf.keras.layers.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
@@ -103,7 +103,7 @@ def main():
         transforms = A.Compose([
             A.Rotate(limit=alpha, p=p),
           ])
-        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms
+        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE)
                                  
         for x, y in dataset.take(1):
           print(x[0])
