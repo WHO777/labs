@@ -52,7 +52,7 @@ def aug_fn(image, label, transforms):
       data = {"image":image}
       aug_data = transforms(**data)
       aug_img = aug_data["image"]
-      #aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+      aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
       aug_img = tf.cast(aug_img, tf.uint8)
       return aug_img
 
@@ -98,13 +98,13 @@ def main():
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for width in [0.1, 0.4, 0.6]:
-  for height in [100, 150, 180, 200]:
-      for p in [0.3, 0.5, 1]:
+  for height in [230]:
+      for p in [0.5, 1]:
         width = height
         transforms = A.Compose([
             A.Resize(286, 286),
+            A.RandomCrop(height, width, p=p),
           ])
-        #            A.RandomCrop(height, width, p=p),
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
