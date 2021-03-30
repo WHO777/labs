@@ -103,8 +103,8 @@ def main():
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   
-  for min in [0.5, 0.7]:
-    for max in [0.1, 0.4, 0.6]:
+  for min in [20, 30]:
+    for max in 60, 70]:
       for p in [0.5, 1]:
         transforms = A.Compose([
             A.GaussNoise (var_limit=(min, max), p=p),
