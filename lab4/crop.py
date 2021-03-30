@@ -96,45 +96,42 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
-  sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
-  #    for width in [0.1, 0.4, 0.6]:
-  for height in [200]:
-      for p in [1]:
-        width = height
-        transforms = A.Compose([
-            A.Resize(256, 256),
-            A.RandomCrop(224, 224, p=p),
-          ])
-        dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+  sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
+
+  width, height, p = 244, 244, 1
+  transforms = A.Compose([
+      A.RandomCrop(width, height, p=p),
+   ])
+  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-        for i, (x, y) in enumerate(dataset.take(10)):
-          print(x[i].shape)
-          plt.imshow(x[i])
-          output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
-          plt.savefig(output_path)
+  for i, (x, y) in enumerate(dataset.take(10)):
+    print(x[i].shape)
+    plt.imshow(x[i])
+    output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
+    plt.savefig(output_path)
 
-        train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-        train_dataset = dataset.take(train_size)
-        validation_dataset = dataset.skip(train_size)
+  train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
+  train_dataset = dataset.take(train_size)
+  validation_dataset = dataset.skip(train_size)
 
-        model = build_model()
-        model.compile(
-          optimizer=tf.optimizers.Adam(),
-          loss=tf.keras.losses.categorical_crossentropy,
-          metrics=[tf.keras.metrics.categorical_accuracy],
-        )
+  model = build_model()
+  model.compile(
+    optimizer=tf.optimizers.Adam(),
+    loss=tf.keras.losses.categorical_crossentropy,
+    metrics=[tf.keras.metrics.categorical_accuracy],
+   )
 
-        log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
-        print(log_dir)
-        model.fit(
-          train_dataset,
-          epochs=50,
-          validation_data=validation_dataset,
-          callbacks=[
-            tf.keras.callbacks.TensorBoard(log_dir),
-            tf.keras.callbacks.LearningRateScheduler(sheduler),
-          ]
-        )
+  log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
+  print(log_dir)
+  model.fit(
+    train_dataset,
+    epochs=50,
+    validation_data=validation_dataset,
+    callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),
+      tf.keras.callbacks.LearningRateScheduler(sheduler),
+    ]
+  )
 
 
 if __name__ == '__main__':
