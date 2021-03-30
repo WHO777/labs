@@ -42,7 +42,7 @@ def parse_proto_example(proto):
   example = tf.io.parse_single_example(proto, keys_to_features)
   example['image'] = tf.image.decode_jpeg(example['image/encoded'], channels=3)
   example['image'] = tf.image.convert_image_dtype(example['image'], dtype=tf.uint8)
-  example['image'] = tf.image.resize(example['image'], tf.constant([300, 300]), method='nearest')
+  example['image'] = tf.image.resize(example['image'], tf.constant([244, 244]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
   
@@ -97,15 +97,15 @@ def main():
   
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
 
-  width, height, p = 224, 224, 1
+  width, height = 224, 224
   transforms = A.Compose([
-      A.RandomCrop(width, height, p=p),
+      A.CenterCrop(width, height, p=1),
    ])
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
   for i, (x, y) in enumerate(dataset.take(10)):
     plt.imshow(x[i])
-    output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
+    output_path = os.path.join('examples/CenterCrop/',str(i)+'.jpg')            
     plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
@@ -119,7 +119,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
    )
 
-  log_dir='{}/RandomCrop_h{}_w{}_p{}_s244'.format(LOG_DIR, height, width, p)
+  log_dir='{}/CenterCrop_h{}_w{}_p{}_s244'.format(LOG_DIR, height, width, p)
   print(log_dir)
   model.fit(
     train_dataset,
