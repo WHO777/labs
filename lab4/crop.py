@@ -42,7 +42,7 @@ def parse_proto_example(proto):
   example = tf.io.parse_single_example(proto, keys_to_features)
   example['image'] = tf.image.decode_jpeg(example['image/encoded'], channels=3)
   example['image'] = tf.image.convert_image_dtype(example['image'], dtype=tf.uint8)
-  example['image'] = tf.image.resize(example['image'], tf.constant([256, 256]), method='nearest')
+  example['image'] = tf.image.resize(example['image'], tf.constant(286, 286]), method='nearest')
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
   
@@ -121,7 +121,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
    )
 
-  log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
+  log_dir='{}/RandomCrop_h{}_w{}_p{}_s286'.format(LOG_DIR, height, width, p)
   print(log_dir)
   model.fit(
     train_dataset,
