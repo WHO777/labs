@@ -98,14 +98,13 @@ def main():
   
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
 
-  width, height, p = 224, 224, 0.5
+  width, height, p = 224, 224, 1
   transforms = A.Compose([
       A.RandomCrop(width, height, p=p),
    ])
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
   for i, (x, y) in enumerate(dataset.take(10)):
-    print(x[i].shape)
     plt.imshow(x[i])
     output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
     plt.savefig(output_path)
