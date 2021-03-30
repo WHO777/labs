@@ -46,11 +46,6 @@ def parse_proto_example(proto):
   return example['image'], tf.one_hot(example['image/label'], depth=NUM_CLASSES)
 
 
-  '''def BrightnessContrast(image):
-    transforms = A.Compose([
-      A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
-    ])'''
-  
 def aug_fn(image, label, transforms):
   
     def BrightnessContrast(image):
@@ -101,13 +96,13 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
   
-  sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
+  sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   
-  for min in [20, 30]:
-    for max in [60, 70]:
+  for min in [10, 50]:
+    for max in [60, 100]:
       for p in [0.5, 1]:
         transforms = A.Compose([
-            A.GaussNoise (var_limit=(min, max), p=p),
+            A.GaussNoise(var_limit=(min, max), p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
@@ -122,12 +117,12 @@ def main():
 
         model = build_model()
         model.compile(
-          optimizer=tf.optimizers.Adam(lr=0.001),
+          optimizer=tf.optimizers.Adam(),
           loss=tf.keras.losses.categorical_crossentropy,
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Gausse_noise_min{}_maxc{}_p{}'.format(LOG_DIR, min, max, p)
+        log_dir='{}/Gausse_noise_min{}_max{}_p{}'.format(LOG_DIR, min, max, p)
         print(log_dir)
         model.fit(
           train_dataset,
