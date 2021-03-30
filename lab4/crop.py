@@ -102,8 +102,9 @@ def main():
       for p in [0.3, 0.5, 1]:
         width = height
         transforms = A.Compose([
-            A.RandomCrop(height, width, p=p),
+            A.Resize(286, 286),
           ])
+        #            A.RandomCrop(height, width, p=p),
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
@@ -122,7 +123,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
+        log_dir='{}/RandomCrop_h{}_w{}_p{}test'.format(LOG_DIR, height, width, p)
         print(log_dir)
         model.fit(
           train_dataset,
