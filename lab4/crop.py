@@ -98,11 +98,11 @@ def main():
   
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for width in [0.1, 0.4, 0.6]:
-  for height in [230]:
+  for height in [224]:
       for p in [1]:
         width = height
         transforms = A.Compose([
-            A.RandomCrop(224, 224, p=p),
+            A.RandomCrop(width, height, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
@@ -123,9 +123,9 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/RandomCrop_h{}_w{}_p{}test'.format(LOG_DIR, height, width, p)
+        log_dir='{}/RandomCrop_h{}_w{}_p{}'.format(LOG_DIR, height, width, p)
         print(log_dir)
-        '''model.fit(
+        model.fit(
           train_dataset,
           epochs=50,
           validation_data=validation_dataset,
@@ -133,7 +133,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )'''
+        )
 
 
 if __name__ == '__main__':
