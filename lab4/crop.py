@@ -103,8 +103,8 @@ def main():
         width = height
         transforms = A.Compose([
             A.Resize(286, 286),
-            A.RandomCrop(224, 224, p=p),
           ])
+        #          A.RandomCrop(224, 224, p=p),
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
