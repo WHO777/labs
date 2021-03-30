@@ -98,11 +98,11 @@ def main():
   
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   
-  for min in [1000, 50]:
-    for max in [2000, 100]:
+  for min in [0.1, 50]:
+    for max in [1, 100]:
       for p in [0.5, 1]:
         transforms = A.Compose([
-            A.Rotate(),
+            A.GaussNoise(var_limit=(min, max), p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
