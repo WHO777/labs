@@ -52,7 +52,7 @@ def aug_fn(image, label, transforms):
       data = {"image":image}
       aug_data = transforms(**data)
       aug_img = aug_data["image"]
-      aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
+      #aug_img = tf.image.resize(aug_img, size=[RESIZE_TO, RESIZE_TO])
       aug_img = tf.cast(aug_img, tf.uint8)
       return aug_img
 
@@ -126,7 +126,7 @@ def main():
 
         log_dir='{}/RandomCrop_h{}_w{}_p{}test'.format(LOG_DIR, height, width, p)
         print(log_dir)
-        model.fit(
+        '''model.fit(
           train_dataset,
           epochs=50,
           validation_data=validation_dataset,
@@ -134,7 +134,7 @@ def main():
             tf.keras.callbacks.TensorBoard(log_dir),
             tf.keras.callbacks.LearningRateScheduler(sheduler),
           ]
-        )
+        )'''
 
 
 if __name__ == '__main__':
