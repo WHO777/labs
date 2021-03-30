@@ -98,8 +98,8 @@ def main():
   
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   
-  for min in [10000000, 50]:
-    for max in [10000000, 100]:
+  for min in [10, 50]:
+    for max in [60, 100]:
       for p in [0.5, 1]:
         transforms = A.Compose([
             A.GaussNoise(var_limit=(min, max), p=p),
@@ -122,7 +122,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Gausse_noise_min{}_max{}_p{}'.format(LOG_DIR, min, max, p)
+        log_dir='{}/Gauss_noise_min{}_max{}_p{}'.format(LOG_DIR, min, max, p)
         print(log_dir)
         model.fit(
           train_dataset,
