@@ -101,7 +101,7 @@ def main():
   for alpha in [20]:
       for p in [1]:
         transforms = A.Compose([
-            A.Rotate(limit=90, interpolation=0, border_mode=0, p=p),
+            A.Rotate(limit=alpha, interpolation=0, border_mode=0, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
