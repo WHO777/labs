@@ -108,6 +108,7 @@ def main():
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
         for i, (x, y) in enumerate(dataset.take(10)):
+          print(x[i].shape)
           plt.imshow(x[i])
           output_path = os.path.join('examples/RandomCrop/',str(i)+'.jpg')            
           plt.savefig(output_path)
