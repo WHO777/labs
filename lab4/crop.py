@@ -60,7 +60,7 @@ def aug_fn(image, label, transforms):
     return aug_image, label
 
 
-def set_shapes(img, label, img_shape=(RESIZE_TO, RESIZE_TO, 3)):
+def set_shapes(img, label, img_shape=(286, 286, 3)):
     img.set_shape(img_shape)
     return img, label
 
