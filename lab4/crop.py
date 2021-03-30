@@ -99,11 +99,11 @@ def main():
   sheduler = lambda epoch: 0.1 * math.exp(-0.5*epoch)
   #    for width in [0.1, 0.4, 0.6]:
   for height in [230]:
-      for p in [0.5, 1]:
+      for p in [1]:
         width = height
         transforms = A.Compose([
             A.Resize(286, 286),
-            A.RandomCrop(height, width, p=p),
+            A.RandomCrop(224, 224, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
