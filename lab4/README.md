@@ -57,4 +57,4 @@ print('fd')
 ![QjQCM83Di_c](https://user-images.githubusercontent.com/61012068/113137461-40022c80-922d-11eb-807c-b589576cf7da.jpg)
 
 ![](./graphic/all_accuracy.svg)
-
+![](./graphic/all_loss.svg)
