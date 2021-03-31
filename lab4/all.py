@@ -121,7 +121,7 @@ def main():
  
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
 
-  ransforms = A.Compose([
+  transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
     A.RandomCrop(224, 224, p=1),
