@@ -145,7 +145,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
     )
 
-  log_dir='{}/all.format(LOG_DIR)
+  log_dir='{}/all'.format(LOG_DIR)
   print(log_dir)
   model.fit(
     train_dataset,
