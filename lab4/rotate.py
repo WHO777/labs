@@ -101,7 +101,7 @@ def main():
   for alpha in [20]:
       for p in [1]:
         transforms = A.Compose([
-            A.Rotate(limit=alpha, interpolation=0, border_mode=0, p=p),
+            A.Rotate(limit=alpha, interpolation=0, border_mode=1, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
@@ -121,7 +121,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Rotate_a{}_p{}_NEAREST'.format(LOG_DIR, alpha, p)
+        log_dir='{}/Rotate_a{}_p{}_NEAREST_REPLICATE'.format(LOG_DIR, alpha, p)
         print(log_dir)
         model.fit(
           train_dataset,
