@@ -20,10 +20,17 @@
 
 ## 2. Поворот изображения на случайный угол
 ### ```# rotate.py```
+### 2.1 Исследование параметров 
 ![c8dky2M7uAY](https://user-images.githubusercontent.com/61012068/113120713-89954c00-921a-11eb-8c53-cc573e9b2a2a.jpg)
 
 ![](./graphic/Rotate_accuracy.svg)
 ![](./graphic/Rotate_loss.svg)
+### 2.2 Исследование методов интерполяции и экстраполяции 
+
+![EO6UHK1-88Q](https://user-images.githubusercontent.com/61012068/113129782-fc56f500-9223-11eb-8479-f686f60c00c8.jpg)
+
+![](./graphic/Rotate2_accuracy.svg)
+![](./graphic/Rotate2_loss.svg)
 
 ## 3. Использование случайной части изображения
 ### ```# crop.py```
