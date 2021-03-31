@@ -131,7 +131,7 @@ def main():
 
   for i, (x, y) in enumerate(dataset.take(10)):
     plt.imshow(x[i])
-    output_path = os.path.join('examples/RandomBrightnessContrast/',str(i)+'.jpg')            
+    output_path = os.path.join('examples/all/',str(i)+'.jpg')            
     plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
@@ -145,7 +145,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
     )
 
-  log_dir='{}/BrightnessContrast_b{}_c{}_p{}_k0.3'.format(LOG_DIR, brightness, contrast, p)
+  log_dir='{}/all.format(LOG_DIR)
   print(log_dir)
   model.fit(
     train_dataset,
