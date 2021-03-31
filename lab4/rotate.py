@@ -101,7 +101,7 @@ def main():
   for alpha in [20]:
       for p in [1]:
         transforms = A.Compose([
-            A.Rotate(limit=alpha, interpolation=2, border_mode=2, p=p),
+            A.Rotate(limit=alpha, interpolation=3, border_mode=3, p=p),
           ])
         dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
@@ -121,7 +121,7 @@ def main():
           metrics=[tf.keras.metrics.categorical_accuracy],
         )
 
-        log_dir='{}/Rotate_a{}_p{}_INTER_CUBIC_BORDER_REFLECT'.format(LOG_DIR, alpha, p)
+        log_dir='{}/Rotate_a{}_p{}_INTER_AREA_BORDER_WRAP'.format(LOG_DIR, alpha, p)
         print(log_dir)
         model.fit(
           train_dataset,
