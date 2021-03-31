@@ -22,7 +22,8 @@
 ## 2. Поворот изображения на случайный угол
 ### ```# rotate.py```
 ### 2.1 Исследование параметров 
-![c8dky2M7uAY](https://user-images.githubusercontent.com/61012068/113120713-89954c00-921a-11eb-8c53-cc573e9b2a2a.jpg)
+![mGxwmqOuNb4](https://user-images.githubusercontent.com/61012068/113133246-185c9580-9228-11eb-9c78-f79fe160f828.jpg)
+
 
 ![](./graphic/Rotate_accuracy.svg)
 ![](./graphic/Rotate_loss.svg)
