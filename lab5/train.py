@@ -116,25 +116,26 @@ def main():
   train_dataset = dataset.take(train_size)
   validation_dataset = dataset.skip(train_size)
 
-  model = build_model()
+  '''model = build_model()
   model.compile(
     optimizer=tf.optimizers.Adam(),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
     )
   
-  log_dir='{}/kek'.format(LOG_DIR)
+  log_dir='{}/before'.format(LOG_DIR)
   print(log_dir)
   model.fit(
     train_dataset,
-    epochs=1,
+    epochs=50,
     validation_data=validation_dataset,
     callbacks=[
     tf.keras.callbacks.TensorBoard(log_dir),
     tf.keras.callbacks.LearningRateScheduler(sheduler),
    ]
   )
-  model.save('model.h5')
+  model.save('model.h5')'''
+  log_dir='{}/fine_tuning{}'.format(LOG_DIR, time.time())
   model = tf.keras.models.load_model('model.h5')
 
   print(model.summary())
@@ -144,11 +145,11 @@ def main():
             layer.trainable = True
 
     model.compile(
-    	optimizer=tf.optimizers.Adam(lr = 1e-6),
+    	optimizer=tf.optimizers.Adam(lr = 1e-7),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
     )
-  
+
   unfreeze_model(model)
   print(model.summary())
   model.fit(
