@@ -127,11 +127,36 @@ def main():
   print(log_dir)
   model.fit(
     train_dataset,
-    epochs=50,
+    epochs=1,
     validation_data=validation_dataset,
     callbacks=[
     tf.keras.callbacks.TensorBoard(log_dir),
     tf.keras.callbacks.LearningRateScheduler(sheduler),
+   ]
+  )
+  model.save('model.h5')
+  model = tf.keras.models.load_model('model.h5')
+
+  print(model.summary())
+  def unfreeze_model(model):
+    for layer in model.layers:
+        if not isinstance(layer, tf.keras.layers.BatchNormalization):
+            layer.trainable = True
+
+    model.compile(
+    	optimizer=tf.optimizers.Adam(lr = 1e-6),
+    	loss=tf.keras.losses.categorical_crossentropy,
+    	metrics=[tf.keras.metrics.categorical_accuracy],
+    )
+  
+  unfreeze_model(model)
+  print(model.summary())
+  model.fit(
+    train_dataset,
+    epochs=10,
+    validation_data=validation_dataset,
+    callbacks=[
+    tf.keras.callbacks.TensorBoard(log_dir),
    ]
   )
 
