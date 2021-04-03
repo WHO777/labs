@@ -97,10 +97,9 @@ def main():
   args = args.parse_args()
   
  
-  exp_sheduler = lambda epoch: 1e-8 * math.exp(-0.5*epoch)
   step_sheduler = lambda epoch: 1e-9 * math.pow(5, math.floor((1+epoch)/0.3))
 
-  lrs = [1e-6, 1e-7, 1e-8]
+  ks = [0.9, 0.7, 0.3]
   transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
@@ -137,8 +136,9 @@ def main():
    ]
   )
   model.save('model.h5')'''
-  for lr in lrs:
-    log_dir='{}/fine_tuning_exp_1e-8_0.5_{}'.format(LOG_DIR, time.time())
+  for k in ks:
+    exp_sheduler = lambda epoch: 1e-8 * math.exp(-k*epoch)
+    log_dir='{}/fine_tuning_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
