@@ -29,7 +29,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -98,7 +98,9 @@ def main():
   
  
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
+  step_sheduler = lambda epoch: 0.0000001 * math.pow(5, math.floor((1+epoch)/0.25))
 
+  lrs = [1e-6, 1e-7, 1e-8]
   transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
@@ -135,31 +137,31 @@ def main():
    ]
   )
   model.save('model.h5')'''
-  log_dir='{}/fine_tuning{}'.format(LOG_DIR, time.time())
-  model = tf.keras.models.load_model('model.h5')
+  for lr in lrs:
+    log_dir='{}/fine_tuning_lr{}_{}'.format(LOG_DIR, lr, time.time())
+    model = tf.keras.models.load_model('model.h5')
 
-  print(model.summary())
-  def unfreeze_model(model):
-    for layer in model.layers:
-        if not isinstance(layer, tf.keras.layers.BatchNormalization):
-            layer.trainable = True
+    def unfreeze_model(model):
+      for layer in model.layers:
+          if not isinstance(layer, tf.keras.layers.BatchNormalization):
+              layer.trainable = True
 
-    model.compile(
-    	optimizer=tf.optimizers.Adam(lr = 1e-7),
+      model.compile(
+        optimizer=tf.optimizers.Adam(lr = lr),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
-    )
+      )
 
-  unfreeze_model(model)
-  print(model.summary())
-  model.fit(
-    train_dataset,
-    epochs=10,
-    validation_data=validation_dataset,
-    callbacks=[
-    tf.keras.callbacks.TensorBoard(log_dir),
-   ]
-  )
+    unfreeze_model(model)
+    print(model.summary())
+    model.fit(
+      train_dataset,
+      epochs=50,
+      validation_data=validation_dataset,
+      callbacks=[
+      tf.keras.callbacks.TensorBoard(log_dir),
+     ]
+    )
 
 
 if __name__ == '__main__':
