@@ -98,7 +98,7 @@ def main():
   
  
   sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
-  step_sheduler = lambda epoch: 0.0000001 * math.pow(5, math.floor((1+epoch)/0.25))
+  step_sheduler = lambda epoch: 1e-6 * math.pow(5, math.floor((1+epoch)/0.3))
 
   lrs = [1e-6, 1e-7, 1e-8]
   transforms = A.Compose([
@@ -138,7 +138,7 @@ def main():
   )
   model.save('model.h5')'''
   for lr in lrs:
-    log_dir='{}/fine_tuning_lr{}_{}'.format(LOG_DIR, lr, time.time())
+    log_dir='{}/fine_tuning_1e-6_5_0.3_{}'.format(LOG_DIR, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
@@ -147,7 +147,7 @@ def main():
               layer.trainable = True
 
       model.compile(
-        optimizer=tf.optimizers.Adam(lr = lr),
+        optimizer=tf.optimizers.Adam(),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
       )
@@ -160,6 +160,7 @@ def main():
       validation_data=validation_dataset,
       callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
+      tf.keras.callbacks.LearningRateScheduler(step_sheduler),
      ]
     )
 
