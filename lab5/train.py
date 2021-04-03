@@ -99,7 +99,7 @@ def main():
  
   step_sheduler = lambda epoch: 1e-9 * math.pow(5, math.floor((1+epoch)/0.3))
 
-  ks = [0.9, 0.7, 0.3]
+  ks = [0.3]
   transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
