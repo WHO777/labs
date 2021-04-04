@@ -116,10 +116,10 @@ def main():
     A.GaussNoise(var_limit=(50, 60), p=1),
     ])
   dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
-  for i, (x, y) in enumerate(dataset2.take(8)):
+  '''for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
-    plt.savefig(output_path)
+    plt.savefig(output_path)'''
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset2.take(train_size)
@@ -146,7 +146,7 @@ def main():
   model.save('model.h5')'''
   for k in ks:
     exp_sheduler = lambda epoch: 1e-8 * math.exp(-k*epoch)
-    log_dir='{}/fine_tuning_new_aug_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
+    log_dir='{}/fine_tuning_def_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
