@@ -110,14 +110,10 @@ def main():
   #dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
   transforms2 = A.Compose([
-    A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=0.25),
-    A.Rotate(limit=30, p=0.25),
-    A.CenterCrop(224, 224, p=0.8),
-    A.GaussNoise(var_limit=(100, 200), p=0.2),
-    A.Flip(0.25),
-    A.CLAHE(0.25),
-    A.ToGray(0.1),
-    A.ChannelShuffle(0.1),
+    A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
+    A.Rotate(limit=15, p=0.25),
+    A.RandomCrop(224, 224, p=1),
+    A.GaussNoise(var_limit=(50, 60), p=1),
     ])
   dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
   for i, (x, y) in enumerate(dataset2.take(8)):
