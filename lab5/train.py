@@ -29,7 +29,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -120,7 +120,7 @@ def main():
     A.ChannelShuffle(0.1),
     ])
   dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
-  for i, (x, y) in enumerate(dataset2.take(30)):
+  for i, (x, y) in enumerate(dataset2.take(16)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
     plt.savefig(output_path)
