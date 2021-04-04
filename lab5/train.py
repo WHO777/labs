@@ -99,8 +99,7 @@ def main():
  
   step_sheduler = lambda epoch: 1e-9 * math.pow(5, math.floor((1+epoch)/0.3))
 
-  ks = [0.9]
-  transforms = A.Compose([
+  transforms_def = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
     A.RandomCrop(224, 224, p=0.8),
@@ -109,13 +108,6 @@ def main():
   
   #dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-  transforms2 = A.Compose([
-    A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
-    A.Rotate(limit=15, p=0.25),
-    A.RandomCrop(224, 224, p=1),
-    A.GaussNoise(var_limit=(50, 60), p=1),
-    ])
-  dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
   '''for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
@@ -144,9 +136,21 @@ def main():
    ]
   )
   model.save('model.h5')'''
-  for k in ks:
-    exp_sheduler = lambda epoch: 1e-8 * math.exp(-k*epoch)
-    log_dir='{}/fine_tuning_def_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
+  for b, c in [(0.3, 0.5), (0.5, 0.3), (0.3, 0.3)]:
+    transforms = A.Compose([
+      A.RandomBrightnessContrast (brightness_limit=b, contrast_limit=c, p=1),
+      A.Rotate(limit=15, p=0.25),
+      A.RandomCrop(224, 224, p=1),
+      A.GaussNoise(var_limit=(50, 60), p=1),
+    ])
+    exp_sheduler = lambda epoch: 1e-8 * math.exp(-0.9*epoch)
+    dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+    
+    train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
+    train_dataset = dataset2.take(train_size)
+    validation_dataset = dataset2.skip(train_size)
+    
+    log_dir='{}/bc_{}_{}_{}'.format(LOG_DIR, b, c, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
