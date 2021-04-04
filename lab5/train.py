@@ -133,7 +133,7 @@ def main():
    ]
   )
   model.save('model.h5')'''
-  for b, c in [(0.3, 0.5), (0.5, 0.3), (0.3, 0.3)]:
+  for b, c in [([-0.3, -0.3], [1, 1]), (0.5, 0.3), (0.3, 0.3)]:
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=b, contrast_limit=c, p=1),
       A.Rotate(limit=15, p=0.25),
