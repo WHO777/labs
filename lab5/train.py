@@ -95,29 +95,26 @@ def main():
   args = argparse.ArgumentParser()
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
-  
- 
-  step_sheduler = lambda epoch: 1e-9 * math.pow(5, math.floor((1+epoch)/0.3))
 
-  transforms_def = A.Compose([
+  '''transforms_def = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
     A.RandomCrop(224, 224, p=0.8),
     A.GaussNoise(var_limit=(100, 200), p=1),
     ])
   
-  #dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-  '''for i, (x, y) in enumerate(dataset2.take(8)):
+  for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
-    plt.savefig(output_path)'''
+    plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-  train_dataset = dataset2.take(train_size)
-  validation_dataset = dataset2.skip(train_size)
+  train_dataset = dataset.take(train_size)
+  validation_dataset = dataset.skip(train_size)
 
-  '''model = build_model()
+  model = build_model()
   model.compile(
     optimizer=tf.optimizers.Adam(),
     loss=tf.keras.losses.categorical_crossentropy,
@@ -147,8 +144,8 @@ def main():
     dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
     
     train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-    train_dataset = dataset2.take(train_size)
-    validation_dataset = dataset2.skip(train_size)
+    train_dataset = dataset.take(train_size)
+    validation_dataset = dataset.skip(train_size)
     
     log_dir='{}/bc_{}_{}_{}'.format(LOG_DIR, b, c, time.time())
     model = tf.keras.models.load_model('model.h5')
