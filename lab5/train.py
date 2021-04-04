@@ -134,7 +134,7 @@ def main():
   )
   model.save('model.h5')'''
   lrs = [4e-8, 6e-8, 8e-8]
-  lr in lrs:
+  for lr in lrs:
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
       A.Rotate(limit=15, p=0.25),
