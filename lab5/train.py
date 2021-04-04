@@ -107,7 +107,7 @@ def main():
     A.GaussNoise(var_limit=(100, 200), p=1),
     ])
   
-  dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
+  #dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
   transforms2 = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=0.25),
