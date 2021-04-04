@@ -148,7 +148,7 @@ def main():
     train_dataset = dataset.take(train_size)
     validation_dataset = dataset.skip(train_size)
     
-    log_dir='{}/fine_tuning_lr_{}_{}'.format(LOG_DIR, lr time.time())
+    log_dir='{}/fine_tuning_lr_{}_{}'.format(LOG_DIR, lr, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
