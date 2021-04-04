@@ -119,7 +119,7 @@ def main():
     A.ToGray(0.1),
     A.ChannelShuffle(0.1),
     ])
-  dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
+  dataset2 = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
