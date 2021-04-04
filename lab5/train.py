@@ -134,8 +134,8 @@ def main():
   )
   model.save('model.h5')'''
   lrs = [4e-8, 6e-8, 8e-8]
-  drop = [10, 5, 1]
-  epochs_drop = [0.5, 0.75, 0.98]
+  drop = [0.5, 0.75, 0.98]
+  epochs_drop = [10, 5, 1]
   for i in range(3):
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
