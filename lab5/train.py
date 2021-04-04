@@ -133,9 +133,10 @@ def main():
    ]
   )
   model.save('model.h5')'''
-  for b, c in [([-0.3, -0.3], [1, 1]), (0.5, 0.3), (0.3, 0.3)]:
+  lrs = [4e-8, 6e-8, 8e-8]
+  lr in lrs:
     transforms = A.Compose([
-      A.RandomBrightnessContrast (brightness_limit=b, contrast_limit=c, p=1),
+      A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
       A.Rotate(limit=15, p=0.25),
       A.RandomCrop(224, 224, p=1),
       A.GaussNoise(var_limit=(50, 60), p=1),
@@ -147,7 +148,7 @@ def main():
     train_dataset = dataset.take(train_size)
     validation_dataset = dataset.skip(train_size)
     
-    log_dir='{}/bc_{}_{}_{}'.format(LOG_DIR, b, c, time.time())
+    log_dir='{}/fine_tuning_lr_{}_{}'.format(LOG_DIR, lr time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
@@ -156,7 +157,7 @@ def main():
               layer.trainable = True
 
       model.compile(
-        optimizer=tf.optimizers.Adam(),
+        optimizer=tf.optimizers.Adam(lr = lr),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
       )
@@ -169,7 +170,6 @@ def main():
       validation_data=validation_dataset,
       callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
-      tf.keras.callbacks.LearningRateScheduler(exp_sheduler),
      ]
     )
 
