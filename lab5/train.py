@@ -99,23 +99,35 @@ def main():
  
   step_sheduler = lambda epoch: 1e-9 * math.pow(5, math.floor((1+epoch)/0.3))
 
-  ks = [0.3]
+  ks = [0.9]
   transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
-    A.RandomCrop(224, 224, p=1),
+    A.RandomCrop(224, 224, p=0.8),
     A.GaussNoise(var_limit=(100, 200), p=1),
     ])
+  
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
-
-  '''for i, (x, y) in enumerate(dataset.take(10)):
+  
+  transforms2 = A.Compose([
+    A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=0.25),
+    A.Rotate(limit=30, p=0.25),
+    A.CenterCrop(224, 224, p=0.8),
+    A.GaussNoise(var_limit=(100, 200), p=0.2),
+    A.Flip(0.25),
+    A.CLAHE(0.25),
+    A.ToGray(0.1),
+    A.ChannelShuffle(0.1),
+    ])
+  dataset2 = dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms2)
+  for i, (x, y) in enumerate(dataset2.take(30)):
     plt.imshow(x[i])
-    output_path = os.path.join('examples/all/',str(i)+'.jpg')            
-    plt.savefig(output_path)'''
+    output_path = os.path.join('examples/',str(i)+'.jpg')            
+    plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
-  train_dataset = dataset.take(train_size)
-  validation_dataset = dataset.skip(train_size)
+  train_dataset = dataset2.take(train_size)
+  validation_dataset = dataset2.skip(train_size)
 
   '''model = build_model()
   model.compile(
@@ -138,7 +150,7 @@ def main():
   model.save('model.h5')'''
   for k in ks:
     exp_sheduler = lambda epoch: 1e-8 * math.exp(-k*epoch)
-    log_dir='{}/fine_tuning_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
+    log_dir='{}/fine_tuning_new_aug_exp_1e-8_{}_{}'.format(LOG_DIR, k, time.time())
     model = tf.keras.models.load_model('model.h5')
 
     def unfreeze_model(model):
