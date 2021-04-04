@@ -163,7 +163,7 @@ def main():
               layer.trainable = True
 
       model.compile(
-        optimizer=tf.optimizers.Adam(lr = lr),
+        optimizer=tf.optimizers.Adam(),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
       )
