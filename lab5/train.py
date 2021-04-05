@@ -135,9 +135,9 @@ def main():
   )
   model.save('model2.h5')'''
 
-  MIN = [100, 150, 200]
-  MAX = [150, 200, 250]
-  for i in range(3):
+  MIN = [200]
+  MAX = [250]
+  for i in range(1):
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
       A.Rotate(limit=15, p=0.25),
