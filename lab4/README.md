@@ -60,7 +60,12 @@ loss
 Добавляя случайный шум удалось получить точность как при использовании экспоненциального закона изменения темпа обучения с параметрами ```initial_lrate = 0.1, k = 0.5```, а именно ```~0.8925```. Поэтому оптимальными парамтерами будем считать ```min = 50, max = 60, p = 1```
 ## 5. Композиция
 ```python
-print('fd')
+transforms = A.Compose([
+  A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
+  A.Rotate(limit=15, p=0.25),
+  A.RandomCrop(224, 224, p=1),
+  A.GaussNoise(var_limit=(50, 60), p=1),
+])
 ```
 
 ![xRjniFQXyoY](https://user-images.githubusercontent.com/61012068/113560012-fd649980-960a-11eb-8776-ac4dd6f7f655.jpg)
