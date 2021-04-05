@@ -153,7 +153,7 @@ def main():
     train_dataset = dataset.take(train_size)
     validation_dataset = dataset.skip(train_size)
     
-    log_dir='{}/without_aug_steplr_0.5_10_{}'.format(LOG_DIR, time.time())
+    log_dir='{}/fine_tuning_lr_1e-9_{}'.format(LOG_DIR, time.time())
     model = tf.keras.models.load_model('model2.h5')
 
     def unfreeze_model(model):
@@ -162,7 +162,7 @@ def main():
               layer.trainable = True
 
       model.compile(
-        optimizer=tf.optimizers.Adam(),
+        optimizer=tf.optimizers.Adam(lr = 1e-9),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
       )
@@ -175,7 +175,6 @@ def main():
       validation_data=validation_dataset,
       callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
-      tf.keras.callbacks.LearningRateScheduler(step_sheduler)
      ]
     )
 
