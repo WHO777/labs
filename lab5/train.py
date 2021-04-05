@@ -135,17 +135,17 @@ def main():
   )
   model.save('model2.h5')'''
 
-  drop = [0.5]
-  epochs_drop = [10]
-  for i in range(1):
+  MIN = [100, 150, 200]
+  MAX = [150, 200, 250]
+  for i in range(3):
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
       A.Rotate(limit=15, p=0.25),
       A.RandomCrop(224, 224, p=1),
-      A.GaussNoise(var_limit=(50, 60), p=1),
+      A.GaussNoise(var_limit=(MIN[i], MAX[i]), p=1),
     ])
     
-    step_sheduler = lambda epoch: 1e-8 * math.pow(drop[i], math.floor((1+epoch)/epochs_drop[i]))
+    step_sheduler = lambda epoch: 1e-8 * math.pow(0.5, math.floor((1+epoch)/10))
     
     dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
     
@@ -153,7 +153,7 @@ def main():
     train_dataset = dataset.take(train_size)
     validation_dataset = dataset.skip(train_size)
     
-    log_dir='{}/fine_tuning_lr_1e-10_{}'.format(LOG_DIR, time.time())
+    log_dir='{}/noise_{}_{}_{}'.format(LOG_DIR, MIN[i], MAX[i], time.time())
     model = tf.keras.models.load_model('model2.h5')
 
     def unfreeze_model(model):
@@ -175,6 +175,7 @@ def main():
       validation_data=validation_dataset,
       callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
+      tf.keras.callbacks.LearningRateScheduler(step_sheduler),
      ]
     )
 
