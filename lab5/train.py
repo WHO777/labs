@@ -135,14 +135,14 @@ def main():
   )
   model.save('model2.h5')'''
 
-  MIN = [200]
-  MAX = [250]
-  for i in range(1):
+  alpha = [30, 35, 40]
+  p = [0.2, 0.15, 0.1]
+  for i in range(3):
     transforms = A.Compose([
       A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
-      A.Rotate(limit=15, p=0.25),
+      A.Rotate(limit=alpha[i], p=p[i]),
       A.RandomCrop(224, 224, p=1),
-      A.GaussNoise(var_limit=(MIN[i], MAX[i]), p=1),
+      A.GaussNoise(var_limit=(50, 60, p=1),
     ])
     
     step_sheduler = lambda epoch: 1e-8 * math.pow(0.5, math.floor((1+epoch)/10))
@@ -153,7 +153,7 @@ def main():
     train_dataset = dataset.take(train_size)
     validation_dataset = dataset.skip(train_size)
     
-    log_dir='{}/noise_{}_{}_{}'.format(LOG_DIR, MIN[i], MAX[i], time.time())
+    log_dir='{}/rotate_{}_{}_{}'.format(LOG_DIR, alpha[i], p[i], time.time())
     model = tf.keras.models.load_model('model2.h5')
 
     def unfreeze_model(model):
@@ -162,7 +162,7 @@ def main():
               layer.trainable = True
 
       model.compile(
-        optimizer=tf.optimizers.Adam(lr = 1e-10),
+      optimizer=tf.optimizers.Adam(),
     	loss=tf.keras.losses.categorical_crossentropy,
     	metrics=[tf.keras.metrics.categorical_accuracy],
       )
