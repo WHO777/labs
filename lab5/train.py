@@ -106,10 +106,10 @@ def main():
   exp_sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-  '''for i, (x, y) in enumerate(dataset2.take(8)):
+  for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
-    plt.savefig(output_path)'''
+    plt.savefig(output_path)
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
