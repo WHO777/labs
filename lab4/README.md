@@ -62,7 +62,8 @@ loss
 ```python
 print('fd')
 ```
-![QjQCM83Di_c](https://user-images.githubusercontent.com/61012068/113137461-40022c80-922d-11eb-807c-b589576cf7da.jpg)
+
+![xRjniFQXyoY](https://user-images.githubusercontent.com/61012068/113560012-fd649980-960a-11eb-8776-ac4dd6f7f655.jpg)
 
 accuracy
 ![](./graphic/all_accuracy.svg)
