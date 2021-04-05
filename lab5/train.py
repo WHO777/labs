@@ -96,19 +96,20 @@ def main():
   args.add_argument('--train', type=str, help='Glob pattern to collect train tfrecord files, use single quote to escape *')
   args = args.parse_args()
 
-  '''transforms_def = A.Compose([
+  transforms = A.Compose([
     A.RandomBrightnessContrast (brightness_limit=[-0.3, -0.3], contrast_limit=[1, 1], p=1),
     A.Rotate(limit=15, p=0.25),
-    A.RandomCrop(224, 224, p=0.8),
-    A.GaussNoise(var_limit=(100, 200), p=1),
-    ])
+    A.RandomCrop(224, 224, p=1),
+    A.GaussNoise(var_limit=(50, 60), p=1),
+  ])
   
+  exp_sheduler = lambda epoch: 0.01 * math.exp(-0.3*epoch)
   dataset = create_dataset(glob.glob(args.train), BATCH_SIZE, transforms)
   
-  for i, (x, y) in enumerate(dataset2.take(8)):
+  '''for i, (x, y) in enumerate(dataset2.take(8)):
     plt.imshow(x[i])
     output_path = os.path.join('examples/',str(i)+'.jpg')            
-    plt.savefig(output_path)
+    plt.savefig(output_path)'''
 
   train_size = int(TRAIN_SIZE * 0.7 / BATCH_SIZE)
   train_dataset = dataset.take(train_size)
@@ -121,7 +122,7 @@ def main():
     metrics=[tf.keras.metrics.categorical_accuracy],
     )
   
-  log_dir='{}/before'.format(LOG_DIR)
+  log_dir='{}/before2'.format(LOG_DIR)
   print(log_dir)
   model.fit(
     train_dataset,
@@ -129,11 +130,11 @@ def main():
     validation_data=validation_dataset,
     callbacks=[
     tf.keras.callbacks.TensorBoard(log_dir),
-    tf.keras.callbacks.LearningRateScheduler(sheduler),
+    tf.keras.callbacks.LearningRateScheduler(exp_sheduler),
    ]
   )
-  model.save('model.h5')'''
-  lrs = [4e-8, 6e-8, 8e-8]
+  model.save('model2.h5')
+  '''lrs = [4e-8, 6e-8, 8e-8]
   drop = [0.5, 0.75, 0.98]
   epochs_drop = [10, 5, 1]
   for i in range(3):
@@ -178,7 +179,7 @@ def main():
       tf.keras.callbacks.TensorBoard(log_dir),
       tf.keras.callbacks.LearningRateScheduler(step_sheduler)
      ]
-    )
+    )'''
 
 
 if __name__ == '__main__':
