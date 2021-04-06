@@ -26,27 +26,29 @@ accuracy
 ![](./graphic/exp_accuracy.svg)
 loss
 ![](./graphic/exp_loss.svg)
-
+Среди рассмотренных вариантов очень трудно выделить оптимальный так как разница в точности с среднем ```~0.002```. Для средующих сравнений выберем вариант с ````k = 0.9```.
 ### 2.3 Изменяющийся по ступенчатому закону 
 ```python
-lrate = initial_lrate * drop^floor(epoch / epochs_drop) 
+lrate = 1e-8 * drop^floor(epoch / epoch_drop) 
 ```
+Где ```drop = 0.5, 0.75, 0.98```, ```epoch_drop = 10, 75, 0.98``` соответственно  </br></br>
 ![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg) </br>
 accuracy
 ![](./graphic/step_accuracy.svg)
 loss
 ![](./graphic/step_loss.svg)
-
+У варианта с ```drop = 0.5, epoch_drop = 10``` точность в среднем на ```~0.006``` больше чем у других, его и будем считать оптимальным их данных 3-х вариантов.
 ### 2.4 Сравнение 3-х вышеописанных способов инициализации темпа обучения 
 ![n1misDfq4Xw](https://user-images.githubusercontent.com/61012068/113769032-3004b400-9729-11eb-97ef-c27244a32331.jpg) </br>
 accuracy
 ![](./graphic/all_accuracy.svg)
 loss
 ![](./graphic/all_loss.svg)
-
+Среди 3-х представленных вариантов лучше всего показал себя ```lr = 1e-9```. Точность больше в среднем на ```~0.008```, ошибка меньше в среднем  на ```0.0067```
 ## 3. Тренировка с применением Fine Tuning
 ![99u4N7chvRk](https://user-images.githubusercontent.com/61012068/113769335-8f62c400-9729-11eb-85f5-b40dbb76cdbb.jpg) </br>
 accuracy
 ![](./graphic/last_accuracy.svg)
 loss
 ![](./graphic/last_loss.svg)
+Применяя технику Fine Tuning были достигнуты следующие резьтаты: точность увеличилась в среднем на ```~0.0038```, ошибка уменьшилась в среднем на ```0.0078```
