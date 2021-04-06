@@ -13,16 +13,20 @@ accuracy
 loss
 ![](./graphic/lrs_loss.svg)
 
+
+![VoYZ2IrPXqY](https://user-images.githubusercontent.com/61012068/113761691-6b4eb500-9720-11eb-82b9-d4c8d736f4f1.jpg)
+accuracy
+![](./graphic/e-8_accuracy.svg)
+loss
+![](./graphic/e-8_loss.svg)
+
+
+![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg)
 accuracy
 ![](./graphic/exp_accuracy.svg)
 loss
 ![](./graphic/exp_loss.svg)
 
-![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113759777-26c21a00-971e-11eb-840a-e1decd271e31.jpg)
-accuracy
-![](./graphic/e-8_accuracy.svg)
-loss
-![](./graphic/e-8_loss.svg)
 
 ![z4waQAfOUgk](https://user-images.githubusercontent.com/61012068/113757728-a00c3d80-971b-11eb-8ee6-a7ee89b23d2b.jpg)
 accuracy
