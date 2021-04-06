@@ -34,7 +34,8 @@ accuracy
 loss
 ![](./graphic/step_loss.svg)
 
-![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113757745-a4385b00-971b-11eb-8835-e38280863206.jpg)
+
+![STNt42kADwU](https://user-images.githubusercontent.com/61012068/113762198-00ea4480-9721-11eb-9789-2da695ec980c.jpg)
 accuracy
 ![](./graphic/all_accuracy.svg)
 loss
