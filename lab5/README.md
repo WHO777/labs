@@ -8,14 +8,14 @@ loss
 
 ## 2. Нахождение оптимального темпа обучения 
 ### 2.1 Статический 
-![wbVQ9f-m1R4](https://user-images.githubusercontent.com/61012068/113757708-9c78b680-971b-11eb-9f9f-22f164545b64.jpg)
+![wbVQ9f-m1R4](https://user-images.githubusercontent.com/61012068/113757708-9c78b680-971b-11eb-9f9f-22f164545b64.jpg) </br>
 accuracy
 ![](./graphic/lrs_accuracy.svg)
 loss
 ![](./graphic/lrs_loss.svg)
 
 
-![VoYZ2IrPXqY](https://user-images.githubusercontent.com/61012068/113761691-6b4eb500-9720-11eb-82b9-d4c8d736f4f1.jpg)
+![VoYZ2IrPXqY](https://user-images.githubusercontent.com/61012068/113761691-6b4eb500-9720-11eb-82b9-d4c8d736f4f1.jpg) </br>
 accuracy
 ![](./graphic/e-8_accuracy.svg)
 loss
@@ -26,8 +26,8 @@ loss
 ```python
 lrate = 1e-8 * exp(-k * num_epoch)
 ``` 
-Где ```k = 0.3, 0.5, 0.7, 0.9```
-![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg)
+Где ```k = 0.3, 0.5, 0.7, 0.9``` </br>
+![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg) </br>
 accuracy
 ![](./graphic/exp_accuracy.svg)
 loss
@@ -37,21 +37,21 @@ loss
 ```python
 lrate = initial_lrate * drop^floor(epoch / epochs_drop) 
 ```
-![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg)
+![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg) </br>
 accuracy
 ![](./graphic/step_accuracy.svg)
 loss
 ![](./graphic/step_loss.svg)
 
 ### 2.4 Сравнение 3-х вышеописанных способов инициализации темпа обучения 
-![STNt42kADwU](https://user-images.githubusercontent.com/61012068/113762198-00ea4480-9721-11eb-9789-2da695ec980c.jpg)
+![STNt42kADwU](https://user-images.githubusercontent.com/61012068/113762198-00ea4480-9721-11eb-9789-2da695ec980c.jpg) </br>
 accuracy
 ![](./graphic/all_accuracy.svg)
 loss
 ![](./graphic/all_loss.svg)
 
 ## 3. Тренировка с применением Fine Tuning
-![URq-AFEk0MM](https://user-images.githubusercontent.com/61012068/113757766-a995a580-971b-11eb-95a2-1765a98f9fe0.jpg)
+![URq-AFEk0MM](https://user-images.githubusercontent.com/61012068/113757766-a995a580-971b-11eb-95a2-1765a98f9fe0.jpg) </br>
 accuracy
 ![](./graphic/last_accuracy.svg)
 loss
