@@ -8,6 +8,7 @@ loss
 
 ## 2. Нахождение оптимального темпа обучения 
 ### 2.1 Статический 
+Ниже представлены графики обучения с ```lr = 1e-7, 1e-8, 1e-9, 1e-10``` </br></br>
 ![wbVQ9f-m1R4](https://user-images.githubusercontent.com/61012068/113757708-9c78b680-971b-11eb-9f9f-22f164545b64.jpg) </br>
 accuracy
 ![](./graphic/lrs_accuracy.svg)
