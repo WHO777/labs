@@ -53,4 +53,7 @@ loss
 
 ## 3. Тренировка с применением Fine Tuning
 ![99u4N7chvRk](https://user-images.githubusercontent.com/61012068/113769335-8f62c400-9729-11eb-85f5-b40dbb76cdbb.jpg)
-
+accuracy
+![](./graphic/last_accuracy.svg)
+loss
+![](./graphic/last_loss.svg)
