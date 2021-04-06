@@ -32,7 +32,7 @@ loss
 ```python
 lrate = 1e-8 * drop^floor(epoch / epoch_drop) 
 ```
-Где ```drop = 0.5, 0.75, 0.98```, ```epoch_drop = 10, 75, 0.98``` соответственно  </br></br>
+Где ```drop = 0.5, 0.75, 0.98```, ```epoch_drop = 10, 5, 0.98``` соответственно  </br></br>
 ![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg) </br>
 accuracy
 ![](./graphic/step_accuracy.svg)
