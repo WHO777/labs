@@ -15,20 +15,13 @@ loss
 ![](./graphic/lrs_loss.svg)
 Из 4-х вариантов у ```lr = 1e-9``` точность в среднем  на ```~0.007``` больше чем у ```lr = 1e-8``` и у ```lr = 1e-10```. Его у будем считать оптимальным из предложенных вариантов </br>
 
-
-![VoYZ2IrPXqY](https://user-images.githubusercontent.com/61012068/113761691-6b4eb500-9720-11eb-82b9-d4c8d736f4f1.jpg) </br>
-accuracy
-![](./graphic/e-8_accuracy.svg)
-loss
-![](./graphic/e-8_loss.svg)
-
 ### 2.2 Изменяющийся по экспоненциальному закону
 Формула изменения темпа обучния имеет следующий вид:
 ```python
 lrate = 1e-8 * exp(-k * num_epoch)
 ``` 
 Где ```k = 0.3, 0.5, 0.7, 0.9``` </br></br>
-![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg) </br>
+![YDhkuCh4haM](https://user-images.githubusercontent.com/61012068/113771611-452f1200-972c-11eb-815e-8d0c6f23eec6.jpg) </br>
 accuracy
 ![](./graphic/exp_accuracy.svg)
 loss
@@ -52,7 +45,7 @@ loss
 ![](./graphic/all_loss.svg)
 
 ## 3. Тренировка с применением Fine Tuning
-![99u4N7chvRk](https://user-images.githubusercontent.com/61012068/113769335-8f62c400-9729-11eb-85f5-b40dbb76cdbb.jpg)
+![99u4N7chvRk](https://user-images.githubusercontent.com/61012068/113769335-8f62c400-9729-11eb-85f5-b40dbb76cdbb.jpg) </br>
 accuracy
 ![](./graphic/last_accuracy.svg)
 loss
