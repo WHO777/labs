@@ -13,7 +13,7 @@ accuracy
 loss
 ![](./graphic/lrs_loss.svg)
 
-![1N7aC6lSWQ4](https://user-images.githubusercontent.com/61012068/113757697-984c9900-971b-11eb-9691-4a3d9ebca9a6.jpg)
+![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113759777-26c21a00-971e-11eb-840a-e1decd271e31.jpg)
 accuracy
 ![](./graphic/e-8_accuracy.svg)
 loss
