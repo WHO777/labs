@@ -45,7 +45,7 @@ loss
 ![](./graphic/step_loss.svg)
 
 ### 2.4 Сравнение 3-х вышеописанных способов инициализации темпа обучения 
-![STNt42kADwU](https://user-images.githubusercontent.com/61012068/113762198-00ea4480-9721-11eb-9789-2da695ec980c.jpg) </br>
+![n1misDfq4Xw](https://user-images.githubusercontent.com/61012068/113769032-3004b400-9729-11eb-97ef-c27244a32331.jpg) </br>
 accuracy
 ![](./graphic/all_accuracy.svg)
 loss
