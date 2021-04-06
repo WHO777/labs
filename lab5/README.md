@@ -17,10 +17,6 @@
 ![](./graphic/step_loss.svg)
 
 
-![](./graphic/step_accuracy.svg)
-![](./graphic/step_loss.svg)
-
-
 ![](./graphic/all_accuracy.svg)
 ![](./graphic/all_loss.svg)
 
