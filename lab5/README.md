@@ -28,7 +28,7 @@ loss
 ![](./graphic/exp_loss.svg)
 
 
-![z4waQAfOUgk](https://user-images.githubusercontent.com/61012068/113757728-a00c3d80-971b-11eb-8ee6-a7ee89b23d2b.jpg)
+![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg)
 accuracy
 ![](./graphic/step_accuracy.svg)
 loss
