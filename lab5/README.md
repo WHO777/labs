@@ -22,9 +22,11 @@ loss
 ![](./graphic/e-8_loss.svg)
 
 ### 2.2 Изменяющийся по экспоненциальному закону
+Формула изменения темпа обучния имеет следующий вид:
 ```python
-lrate = 0.1 * exp(-0.5 * num_epoch)
-```
+lrate = 1e-8 * exp(-k * num_epoch)
+``` 
+Где ```k = 0.3, 0.5, 0.7, 0.9```
 ![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg)
 accuracy
 ![](./graphic/exp_accuracy.svg)
