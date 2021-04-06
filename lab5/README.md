@@ -1,6 +1,6 @@
 # Решение задачи классификации изображений из набора данных Oregon Wildlife с использованием нейронных сетей глубокого обучения и техники обучения Fine Tuning
 ## 1. Тренировка без применения Fine Tuning
-![iXQQxiSlZuI](https://user-images.githubusercontent.com/61012068/113757677-9256b800-971b-11eb-8ea9-88c50275360b.jpg)
+![iXQQxiSlZuI](https://user-images.githubusercontent.com/61012068/113757677-9256b800-971b-11eb-8ea9-88c50275360b.jpg) </br>
 accuracy
 ![](./graphic/before_accuracy.svg)
 loss
@@ -26,7 +26,7 @@ loss
 ```python
 lrate = 1e-8 * exp(-k * num_epoch)
 ``` 
-Где ```k = 0.3, 0.5, 0.7, 0.9``` </br>
+Где ```k = 0.3, 0.5, 0.7, 0.9``` </br></br>
 ![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg) </br>
 accuracy
 ![](./graphic/exp_accuracy.svg)
