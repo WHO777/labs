@@ -22,6 +22,9 @@ loss
 ![](./graphic/e-8_loss.svg)
 
 ### 2.2 Изменяющийся по экспоненциальному закону
+```python
+lrate = 0.1 * exp(-0.5 * num_epoch)
+```
 ![ry7RNiX28sA](https://user-images.githubusercontent.com/61012068/113761729-79043a80-9720-11eb-9197-c950155635bb.jpg)
 accuracy
 ![](./graphic/exp_accuracy.svg)
@@ -29,6 +32,9 @@ loss
 ![](./graphic/exp_loss.svg)
 
 ### 2.3 Изменяющийся по ступенчатому закону 
+```python
+lrate = initial_lrate * drop^floor(epoch / epochs_drop) 
+```
 ![n-uos1f0RqM](https://user-images.githubusercontent.com/61012068/113762092-e44e0c80-9720-11eb-8295-b679c3bb1310.jpg)
 accuracy
 ![](./graphic/step_accuracy.svg)
