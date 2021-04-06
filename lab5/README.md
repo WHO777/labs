@@ -13,6 +13,7 @@ accuracy
 ![](./graphic/lrs_accuracy.svg)
 loss
 ![](./graphic/lrs_loss.svg)
+Из 4-х вариантов у ```lr = 1e-9``` точность в среднем  на ```~0.007``` больше чем у ```lr = 1e-8``` и у ```lr = 1e-10```. Его у будем считать оптимальным из предложенных вариантов </br>
 
 
 ![VoYZ2IrPXqY](https://user-images.githubusercontent.com/61012068/113761691-6b4eb500-9720-11eb-82b9-d4c8d736f4f1.jpg) </br>
